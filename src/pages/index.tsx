@@ -7,11 +7,13 @@ const WidgetLayout = dynamic(() => import("@/components/WidgetLayout"), {
 });
 
 export default function Home() {
-  useBackgroundImageWithAccent("https://tepi.vercel.app/wp");
+  useBackgroundImageWithAccent("/wallpaper5.jpg");
   return (
     <main className={`w-screen h-screen flex`}>
       <Nav />
-      <WidgetLayout />
+      <div className="w-screen h-screen overflow-y-auto ">
+        <WidgetLayout />
+      </div>
     </main>
   );
 }

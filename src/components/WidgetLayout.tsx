@@ -3,8 +3,12 @@ import GridLayout from "react-grid-layout";
 import { useState, useEffect } from "react";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import { Responsive, WidthProvider } from "react-grid-layout";
 import Time from "@/components/Widgets/Time";
+import { TimeDimensions } from "@/components/Widgets/Time";
+
 import Search from "@/components/Widgets/Search";
+import { SearchDimensions } from "./Widgets/Search";
 
 const WidgetLayout = () => {
   const [theme, setTheme] = useState("");
@@ -24,47 +28,37 @@ const WidgetLayout = () => {
     }
   }, []);
 
-  const layout = [
-    { i: "1", x: 0, y: 0, w: 4, h: 5 },
-    { i: "2", x: 5, y: 10, w: 4, h: 5 },
-    { i: "3", x: 0, y: 5, w: 4, h: 5 },
-    { i: "4", x: 18, y: 6, w: 7, h: 2, maxH: 2, maxW: 7, minH: 2 },
-    { i: "5", x: 18, y: 8, w: 7, h: 2, maxH: 2, maxW: 7, minH: 2 },
-    { i: "6", x: 18, y: 10, w: 7, h: 2, maxH: 2, maxW: 7, minH: 2 },
-
-    // Add more widgets as needed
-  ];
-
+  const ResponsiveGridLayout = WidthProvider(Responsive);
   return (
-    <GridLayout
+    <ResponsiveGridLayout
       className="layout"
-      layout={layout}
       autoSize={true}
-      cols={20}
+      breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
+      cols={{ lg: 20, md: 20, sm: 20, xs: 20, xxs: 20 }}
       rowHeight={15}
-      width={1326}
       margin={[10, 10]}
-      draggableHandle=".widget-header"
+      draggableHandle=".widget"
     >
-      <div key="1" className="widget">
+      <div key="1" data-grid={SearchDimensions} className="h-full w-full">
         <Time theme="dark" />
       </div>
-      <div key="2" className="widget">
+
+      <div key="2" data-grid={SearchDimensions} className="h-full w-full">
         <Time theme="light" />
       </div>
-      <div key="3" className="widget">
+      <div key="3" data-grid={SearchDimensions} className="h-full w-full">
         <Time theme="solid" />
       </div>
-      <div key="4" className="widget">
+      <div key="4" data-grid={TimeDimensions} className="h-full w-full">
         <Search theme="dark" />
       </div>
-      <div key="5" className="widget">
+      <div key="5" data-grid={TimeDimensions} className="h-full w-full">
         <Search theme="light" />
       </div>
-      <div key="6" className="widget">
+      <div key="6" data-grid={TimeDimensions} className="h-full w-full">
         <Search theme="solid" />
       </div>
-    </GridLayout>
+    </ResponsiveGridLayout>
   );
 };
 

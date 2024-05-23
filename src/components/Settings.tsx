@@ -1,10 +1,35 @@
 import { motion } from "framer-motion";
 import { GithubIcon } from "@/components/Icons/GithubIcon";
 import { DiscordIcon } from "@/components/Icons/DiscordIcon";
-import { useEffect, useState } from "react";
+import useUserSettings from "@/hooks/useUserSettings";
+import { UserSettings } from "@/types/types";
+import { useState } from "react";
+import Time from "@/components/Widgets/Time";
+import Search from "@/components/Widgets/Search";
 
 const Settings = () => {
   const [active, setActive] = useState("general");
+  const [settings, updateSettings] = useUserSettings();
+
+  const handleSearchEngineChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    updateSettings({
+      searchEngine: event.target.value as UserSettings["searchEngine"],
+    });
+  };
+
+  const handleTimeFormatChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    updateSettings({
+      timeFormat: event.target.value as UserSettings["timeFormat"],
+    });
+  };
+
+  const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    updateSettings({ theme: event.target.value as UserSettings["theme"] });
+  };
 
   return (
     <motion.div
@@ -65,7 +90,11 @@ const Settings = () => {
           <div className="space-y-4">
             <div className="flex flex-col">
               <span className="font-semibold">Search Engine</span>
-              <select className=" rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border">
+              <select
+                value={settings.searchEngine}
+                onChange={handleSearchEngineChange}
+                className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+              >
                 <option>Google</option>
                 <option>Bing</option>
                 <option>Duckduckgo</option>
@@ -74,10 +103,39 @@ const Settings = () => {
 
             <div className="flex flex-col">
               <span className="font-semibold">Time Format</span>
-              <select className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border">
-                <option>24 Hour</option>
-                <option>12 Hour</option>
+              <select
+                value={settings.timeFormat}
+                onChange={handleTimeFormatChange}
+                className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+              >
+                <option value="24">24 Hour</option>
+                <option value="12">12 Hour</option>
               </select>
+            </div>
+          </div>
+        )}
+        {active === "theme" && (
+          <div className="space-y-4">
+            <div className="flex flex-col">
+              <span className="font-semibold">Theme</span>
+              <select
+                value={settings.theme}
+                onChange={handleThemeChange}
+                className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+              >
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="solid">Solid</option>
+              </select>
+            </div>
+          </div>
+        )}
+        {active === "widgets" && (
+          <div className="space-y-4">
+            <div className="flex flex-col">
+              <span className="font-semibold">Widgets</span>
+              <Time theme="dark" />
+              <Search theme="dark" />
             </div>
           </div>
         )}

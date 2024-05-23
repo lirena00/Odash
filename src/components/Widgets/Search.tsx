@@ -1,9 +1,20 @@
 import { GoogleIcon } from "@/components/Icons/GoogleIcon";
 
+export const SearchDimensions = {
+  x: 0,
+  y: 0,
+  w: 4,
+  h: 5,
+  minW: 4,
+  minH: 5,
+  maxW: 6,
+  maxH: 7,
+};
+
 const Search = ({ theme }: { theme: string }) => {
   return (
     <div
-      className={`widget-header w-full h-full flex gap-2 rounded-md ${
+      className={`widget w-full h-full flex gap-2 rounded-md ${
         theme === "dark"
           ? "dark"
           : theme === "light"
@@ -16,7 +27,7 @@ const Search = ({ theme }: { theme: string }) => {
       </div>
       <input
         type="text"
-        className={`w-full bg-transparent outline-none `}
+        className={`w-full bg-transparent outline-none px-1 `}
         placeholder="Search..."
       />
     </div>
