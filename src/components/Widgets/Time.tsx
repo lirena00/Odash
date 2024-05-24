@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
-
-interface TimeProps {
-  theme: string;
-}
+import { useSettings } from "@/contexts/SettingsContext";
 
 export const TimeDimensions = {
   x: 0,
@@ -15,17 +12,21 @@ export const TimeDimensions = {
   maxH: 3,
 };
 
-const Time: React.FC<TimeProps> = ({ theme }) => {
+const Time = () => {
   const [time, setTime] = useState("");
   const [date, setDate] = useState("");
+  const { settings } = useSettings();
+  const theme = settings.theme;
 
   useEffect(() => {
     const interval = setInterval(() => {
       const currentDate = new Date();
+      const timeFormat = settings.timeFormat === "12hr" ? true : false;
+
       const timeString = currentDate.toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
-        hour12: false, // Set to false for 24-hour clock format
+        hour12: timeFormat, // Use settings.timeFormat to set 12-hour or 24-hour clock format
       });
 
       const dateString = currentDate.toLocaleDateString([], {
@@ -39,7 +40,7 @@ const Time: React.FC<TimeProps> = ({ theme }) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [settings.timeFormat]);
 
   const themeClass =
     theme === "dark"

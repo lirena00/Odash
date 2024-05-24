@@ -1,4 +1,5 @@
 import { GoogleIcon } from "@/components/Icons/GoogleIcon";
+import { useSettings } from "@/contexts/SettingsContext";
 
 export const SearchDimensions = {
   x: 0,
@@ -11,7 +12,9 @@ export const SearchDimensions = {
   maxH: 7,
 };
 
-const Search = ({ theme }: { theme: string }) => {
+const Search = () => {
+  const { settings } = useSettings();
+  const theme = settings.theme;
   return (
     <div
       className={`widget w-full h-full flex gap-2 rounded-md ${
