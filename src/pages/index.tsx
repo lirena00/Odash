@@ -7,7 +7,7 @@ const WidgetLayout = dynamic(() => import("@/components/WidgetLayout"), {
 });
 
 export default function Home() {
-  useBackgroundImageWithAccent("/wallpaper5.jpg");
+  useBackgroundImageWithAccent("/wallpaper2.jpg");
   return (
     <main className={`w-screen h-screen flex`}>
       <Nav />
