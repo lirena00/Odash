@@ -17,7 +17,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-grid-layout": "^1.4.4",
-    "styled-components": "^6.1.11"
+    "styled-components": "^6.1.11",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/chroma-js": "^2.4.4",
@@ -26,6 +27,7 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "@types/react-grid-layout": "^1.3.5",
+    "@types/uuid": "^9.0.8",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
