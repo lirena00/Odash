@@ -11,6 +11,7 @@ interface UserSettings {
   searchEngine: "google" | "bing" | "duckduckgo";
   theme: "light" | "dark" | "solid";
   timeFormat: "24hr" | "12hr";
+  temperatureFormat: "Fahrenheit" | "Celsius";
 }
 
 interface SettingsContextProps {
@@ -22,6 +23,7 @@ const defaultSettings: UserSettings = {
   searchEngine: "google",
   theme: "dark",
   timeFormat: "24hr",
+  temperatureFormat: "Celsius",
 };
 
 // Create the context with default values

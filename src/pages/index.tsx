@@ -1,18 +1,49 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Nav from "@/components/Nav";
 import dynamic from "next/dynamic";
+import { v4 as uuidv4 } from "uuid";
 import useBackgroundImageWithAccent from "@/hooks/useBackgroundImageWithAccent";
+import { Layout } from "react-grid-layout";
 const WidgetLayout = dynamic(() => import("@/components/WidgetLayout"), {
   ssr: false,
 });
 
 export default function Home() {
-  useBackgroundImageWithAccent("/wallpaper2.jpg");
+  const [widgets, setWidgets] = useState<
+    { i: string; component: string; dimensions: Layout }[]
+  >([]);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const savedWidgets = localStorage.getItem("widgets");
+    if (savedWidgets) {
+      setWidgets(JSON.parse(savedWidgets));
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    if (!isLoading) {
+      localStorage.setItem("widgets", JSON.stringify(widgets));
+    }
+  }, [widgets, isLoading]);
+
+  const addWidget = (component: string, dimensions: any) => {
+    const id = uuidv4();
+    const newWidget = {
+      i: id,
+      component,
+      dimensions: { ...dimensions, i: id },
+    };
+    setWidgets([...widgets, newWidget]);
+  };
+
+  useBackgroundImageWithAccent("/wallpaper5.jpg");
+  const [edit, setEdit] = useState(false);
   return (
     <main className={`w-screen h-screen flex`}>
-      <Nav />
+      <Nav edit={edit} setEdit={setEdit} addWidget={addWidget} />
       <div className="w-screen h-screen overflow-y-auto ">
-        <WidgetLayout />
+        <WidgetLayout edit={edit} widgets={widgets} setWidgets={setWidgets} />
       </div>
     </main>
   );

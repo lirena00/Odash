@@ -4,12 +4,12 @@ import { useSettings } from "@/contexts/SettingsContext";
 export const TimeDimensions = {
   x: 0,
   y: 0,
-  w: 7,
-  h: 2,
+  w: 4,
+  h: 5,
   minW: 4,
-  minH: 2,
-  maxW: 7,
-  maxH: 3,
+  minH: 5,
+  maxW: 6,
+  maxH: 7,
 };
 
 const Time = () => {

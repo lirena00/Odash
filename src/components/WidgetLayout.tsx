@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { Responsive, WidthProvider, Layout } from "react-grid-layout";
+import { CrossIcon } from "@/components/Icons/CrossIcon";
 import Time from "@/components/Widgets/Time";
-import { TimeDimensions } from "@/components/Widgets/Time";
-
+import Tile from "@/components/Widgets/Tile";
 import Search from "@/components/Widgets/Search";
-import { SearchDimensions } from "./Widgets/Search";
+import Todo from "@/components/Widgets/Todo";
+import Weather from "@/components/Widgets/Weather";
 
-const WidgetLayout = () => {
-  const ResponsiveGridLayout = WidthProvider(Responsive);
+const ResponsiveGridLayout = WidthProvider(Responsive);
+
+interface Widget {
+  i: string;
+  component: string;
+  dimensions: Layout;
+}
+
+interface WidgetLayout {
+  edit: boolean;
+  widgets: any;
+  setWidgets: (widgets: any) => void;
+}
+
+const componentMap: { [key: string]: React.ComponentType } = {
+  Time,
+  Search,
+  Todo,
+  Tile,
+  Weather,
+};
+
+const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
   return (
     <>
       <ResponsiveGridLayout
@@ -20,36 +42,43 @@ const WidgetLayout = () => {
         rowHeight={15}
         margin={[10, 10]}
         draggableHandle=".widget"
+        isDraggable={edit}
+        isResizable={edit}
+        onLayoutChange={(layout) => {
+          const updatedWidgets = layout
+            .map((l) => {
+              const widget = widgets.find((w: Widget) => w.i === l.i);
+              return widget ? { ...widget, dimensions: l } : null;
+            })
+            .filter(Boolean);
+          setWidgets(updatedWidgets as any);
+        }}
       >
-        <div key="1" data-grid={SearchDimensions} className="h-full w-full">
-          <Time />
-        </div>
-
-        <div key="2" data-grid={SearchDimensions} className="h-full w-full">
-          <Time />
-        </div>
-        <div key="3" data-grid={SearchDimensions} className="h-full w-full">
-          <Time />
-        </div>
-        <div key="4" data-grid={TimeDimensions} className="h-full w-full">
-          <Search />
-        </div>
-        <div key="5" data-grid={TimeDimensions} className="h-full w-full">
-          <Search />
-        </div>
-        <div key="6" data-grid={TimeDimensions} className="h-full w-full">
-          <Search />
-        </div>
+        {widgets.map((widget: Widget) => {
+          const Component = componentMap[widget.component];
+          return (
+            <div
+              key={widget.i}
+              data-grid={widget.dimensions}
+              className="h-full relative w-full"
+            >
+              {edit && (
+                <button
+                  className="p-1 text-white bg-black z-10 rounded-tr-md absolute top-0 right-0"
+                  onClick={() =>
+                    setWidgets(widgets.filter((w: Widget) => w.i !== widget.i))
+                  }
+                >
+                  <CrossIcon />
+                </button>
+              )}
+              <Component />
+            </div>
+          );
+        })}
       </ResponsiveGridLayout>
     </>
   );
 };
 
 export default WidgetLayout;
-
-/*
-      <div key="1" className="widget">
-        <div className="widget-header">Widget 1</div>
-        <div className="widget-content">Content 1</div>
-      </div>
-      */

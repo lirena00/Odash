@@ -3,8 +3,17 @@ import { GithubIcon } from "@/components/Icons/GithubIcon";
 import { DiscordIcon } from "@/components/Icons/DiscordIcon";
 import { useState } from "react";
 import { useSettings } from "@/contexts/SettingsContext";
+import { SearchDimensions } from "@/components/Widgets/Search";
+import { TodoDimensions } from "@/components/Widgets/Todo";
+import { TimeDimensions } from "@/components/Widgets/Time";
+import { TileDimensions } from "@/components/Widgets/Tile";
+import { WeatherDimensions } from "@/components/Widgets/Weather";
 
-const Settings = () => {
+interface SettingsProps {
+  addWidget: (component: string, dimensions: any) => void;
+}
+
+const Settings = ({ addWidget }: SettingsProps) => {
   const [active, setActive] = useState("general");
   const { settings, updateSettings } = useSettings();
 
@@ -24,6 +33,14 @@ const Settings = () => {
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     updateSettings({ timeFormat: event.target.value as "24hr" | "12hr" });
+  };
+
+  const handleTemperatureFormatChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    updateSettings({
+      temperatureFormat: event.target.value as "Fahrenheit" | "Celsius",
+    });
   };
 
   return (
@@ -107,6 +124,18 @@ const Settings = () => {
                 <option value="12hr">12 Hour</option>
               </select>
             </div>
+
+            <div className="flex flex-col">
+              <span className="font-semibold">Temperature Format</span>
+              <select
+                className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+                value={settings.temperatureFormat}
+                onChange={handleTemperatureFormatChange}
+              >
+                <option value="Fahrenheit">Fahrenheit</option>
+                <option value="Celsius">Celsius</option>
+              </select>
+            </div>
           </div>
         )}
 
@@ -123,6 +152,57 @@ const Settings = () => {
                 <option value="light">Light</option>
                 <option value="solid">Solid</option>
               </select>
+            </div>
+
+            <div className="flex flex-col">
+              <span className="font-semibold">Colors</span>
+              <select
+                className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+                value={settings.theme}
+                onChange={handleThemeChange}
+              >
+                <option value="dark">Dark</option>
+                <option value="light">Light</option>
+                <option value="solid">Solid</option>
+              </select>
+            </div>
+          </div>
+        )}
+
+        {active === "widgets" && (
+          <div className="space-y-4">
+            <span>Widgets</span>
+            <div className="flex flex-col gap-2">
+              <button
+                className="bg-white/50 px-2 py-1"
+                onClick={() => addWidget("Search", SearchDimensions)}
+              >
+                search
+              </button>
+              <button
+                className="bg-white/50 px-2 py-1"
+                onClick={() => addWidget("Todo", TodoDimensions)}
+              >
+                todo
+              </button>
+              <button
+                className="bg-white/50 px-2 py-1"
+                onClick={() => addWidget("Time", TimeDimensions)}
+              >
+                time
+              </button>
+              <button
+                className="bg-white/50 px-2 py-1"
+                onClick={() => addWidget("Tile", TileDimensions)}
+              >
+                tile
+              </button>
+              <button
+                className="bg-white/50 px-2 py-1"
+                onClick={() => addWidget("Weather", WeatherDimensions)}
+              >
+                weather
+              </button>
             </div>
           </div>
         )}

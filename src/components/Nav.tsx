@@ -1,18 +1,24 @@
 import { SettingIcon } from "@/components/Icons/SettingIcon";
 import Settings from "@/components/Settings";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
-import { PlusIcon } from "@/components/Icons/PlusIcon";
+import { EditIcon } from "@/components/Icons/EditIcon";
 
-const Nav = () => {
+interface NavProps {
+  edit: boolean;
+  setEdit: (edit: boolean) => void;
+  addWidget: (component: string, dimensions: any) => void;
+}
+
+const Nav: React.FC<NavProps> = ({ edit, setEdit, addWidget }) => {
   const [tab, setTab] = useState("");
 
   return (
     <div className="relative flex">
       <div className="h-screen text-2xl w-fit p-2  backdrop-blur-lg bg-black/70 flex flex-col">
         <div className="mt-auto  gap-2 flex flex-col relative">
-          <button className="">
-            <PlusIcon />
+          <button className="" onClick={() => setEdit(!edit)}>
+            <EditIcon />
           </button>
           <button
             className=""
@@ -25,7 +31,9 @@ const Nav = () => {
         </div>
       </div>
 
-      <AnimatePresence>{tab === "settings" && <Settings />}</AnimatePresence>
+      <AnimatePresence>
+        {tab === "settings" && <Settings addWidget={addWidget} />}
+      </AnimatePresence>
     </div>
   );
 };
