@@ -12,6 +12,9 @@ interface UserSettings {
   theme: "light" | "dark" | "solid";
   timeFormat: "24hr" | "12hr";
   temperatureFormat: "Fahrenheit" | "Celsius";
+  backgroundImage: string;
+  city: string;
+  theme_colors: string[];
 }
 
 interface SettingsContextProps {
@@ -24,6 +27,20 @@ const defaultSettings: UserSettings = {
   theme: "dark",
   timeFormat: "24hr",
   temperatureFormat: "Celsius",
+  city: "",
+  backgroundImage: "/wallpaper1.jpg",
+  theme_colors: [
+    "rgb(214, 184, 160)",
+    "rgb(82, 176, 187)",
+    "rgb(4, 27, 53)",
+    "rgb(36, 112, 139)",
+    "rgb(13, 69, 101)",
+    "rgb(28, 94, 114)",
+    "rgb(47, 144, 173)",
+    "rgb(163, 76, 96)",
+    "rgb(99, 73, 98)",
+    "rgb(207, 110, 72)",
+  ],
 };
 
 // Create the context with default values

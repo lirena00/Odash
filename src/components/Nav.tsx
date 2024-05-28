@@ -16,7 +16,7 @@ const Nav: React.FC<NavProps> = ({ edit, setEdit, addWidget }) => {
   return (
     <div className="relative flex">
       <div className="h-screen text-2xl w-fit p-2  backdrop-blur-lg bg-black/70 flex flex-col">
-        <div className="mt-auto  gap-2 flex flex-col relative">
+        <div className="mt-auto  gap-2 flex flex-col ">
           <button className="" onClick={() => setEdit(!edit)}>
             <EditIcon />
           </button>

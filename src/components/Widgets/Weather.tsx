@@ -1,5 +1,5 @@
 import { useSettings } from "@/contexts/SettingsContext";
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import { LocationIcon } from "@/components/Icons/LocationIcon";
 import { WindIcon } from "@/components/Icons/WindIcon";
 import { HumidityIcon } from "@/components/Icons/Humidity";
@@ -20,28 +20,51 @@ const Weather = () => {
   const theme = settings.theme;
 
   const [weather, setWeather] = useState(null);
+  const [error, setError] = useState(false); // Add error state
   const format = settings.temperatureFormat;
 
   useEffect(() => {
     const fetchWeather = async () => {
       try {
         const response = await fetch(
-          `https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_KEY}&q=auto:ip`
+          `https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_KEY}&q=${settings.city}`
         );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
         const data = await response.json();
         setWeather(data);
+        setError(false); // Reset error state if fetch is successful
       } catch (error) {
         console.error("Error fetching weather data:", error);
+        setError(true); // Set error state if fetch fails
       }
     };
 
     fetchWeather();
   }, []);
+  // *haven't added dependency on settings.city because of api limits
+
+  if (error) {
+    return (
+      <div
+        className={`widget w-full h-full space-y-2 rounded-md p-2 ${
+          theme === "dark"
+            ? "dark"
+            : theme === "light"
+            ? "light"
+            : "bg-accent text-solid-text"
+        } `}
+      >
+        Edit city in settings
+      </div>
+    );
+  }
 
   if (!weather) {
     return (
       <div
-        className={`widget w-full h-full space-y-2 rounded-md p-2 ${
+        className={`widget w-full h-full  max-h-80 overflow-y-auto space-y-2 rounded-md p-2 ${
           theme === "dark"
             ? "dark"
             : theme === "light"
@@ -79,7 +102,7 @@ const Weather = () => {
       } `}
     >
       <div className="flex gap-1 justify-between">
-        <div className="items-start ">
+        <div className="items-start">
           <p className="text-3xl">
             {format === "Fahrenheit" ? `${temp_f}°F` : `${temp_c}°C`}
           </p>

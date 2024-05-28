@@ -21,14 +21,18 @@ const Tile = () => {
 
   return (
     <div
-      className={`p-2 grid place-items-center widget rounded-md w-full h-full ${themeClass}`}
+      className={`group p-2 grid place-items-center widget rounded-md w-full h-full ${themeClass}`}
     >
       <Image
-        width={75}
-        height={75}
+        width={50}
+        height={50}
         alt="Animood"
+        className="m-auto text-lg  block group-hover:scale-90 transform transition ease-out duration-500 "
         src="https://icons.duckduckgo.com/ip0/netflix.com.ico"
       />
+      <div className="m-auto w-full  text-lg hidden text-center group-hover:block transform transition ease-out duration-300">
+        <span className="text-sm text-center">Netflix</span>
+      </div>
     </div>
   );
 };

@@ -20,7 +20,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-[#03C988];
+    @apply bg-white/50;
   }
 }
 @layer components {

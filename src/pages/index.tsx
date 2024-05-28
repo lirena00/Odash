@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { v4 as uuidv4 } from "uuid";
 import useBackgroundImageWithAccent from "@/hooks/useBackgroundImageWithAccent";
 import { Layout } from "react-grid-layout";
+import { useSettings } from "@/contexts/SettingsContext";
 const WidgetLayout = dynamic(() => import("@/components/WidgetLayout"), {
   ssr: false,
 });
@@ -12,6 +13,8 @@ export default function Home() {
   const [widgets, setWidgets] = useState<
     { i: string; component: string; dimensions: Layout }[]
   >([]);
+  const { settings } = useSettings();
+  const backgroundImage = settings.backgroundImage;
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const savedWidgets = localStorage.getItem("widgets");
@@ -37,7 +40,8 @@ export default function Home() {
     setWidgets([...widgets, newWidget]);
   };
 
-  useBackgroundImageWithAccent("/wallpaper5.jpg");
+  useBackgroundImageWithAccent(backgroundImage);
+
   const [edit, setEdit] = useState(false);
   return (
     <main className={`w-screen h-screen flex`}>

@@ -56,6 +56,7 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
       >
         {widgets.map((widget: Widget) => {
           const Component = componentMap[widget.component];
+
           return (
             <div
               key={widget.i}
