@@ -30,12 +30,17 @@ export default function Home() {
     }
   }, [widgets, isLoading]);
 
-  const addWidget = (component: string, dimensions: any) => {
+  const addWidget = (
+    component: string,
+    dimensions: any,
+    props?: { [key: string]: any }
+  ) => {
     const id = uuidv4();
     const newWidget = {
       i: id,
       component,
       dimensions: { ...dimensions, i: id },
+      props: component === "Tile" ? { ...props, id } : null,
     };
     setWidgets([...widgets, newWidget]);
   };

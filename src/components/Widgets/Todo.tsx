@@ -71,7 +71,7 @@ const Todo = () => {
 
   return (
     <div
-      className={`widget w-full h-full max-h-80 overflow-y-auto space-y-2 rounded-md p-2 ${
+      className={`widget w-full h-full max-h-96 overflow-y-auto space-y-2 rounded-md p-2 ${
         theme === "dark"
           ? "dark"
           : theme === "light"

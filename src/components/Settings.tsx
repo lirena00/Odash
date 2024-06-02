@@ -10,11 +10,17 @@ import { TileDimensions } from "@/components/Widgets/Tile";
 import { WeatherDimensions } from "@/components/Widgets/Weather";
 
 interface SettingsProps {
-  addWidget: (component: string, dimensions: any) => void;
+  addWidget: (
+    component: string,
+    dimensions: any,
+    props?: { [key: string]: any }
+  ) => void;
 }
 
 const Settings = ({ addWidget }: SettingsProps) => {
   const [active, setActive] = useState("general");
+  const [url, setUrl] = useState("");
+  const [title, setTitle] = useState("");
   const { settings, updateSettings } = useSettings();
   const wallpapers = [
     "/wallpaper1.jpg",
@@ -277,12 +283,28 @@ const Settings = ({ addWidget }: SettingsProps) => {
               >
                 time
               </button>
-              <button
-                className="bg-white/50 px-2 py-1"
-                onClick={() => addWidget("Tile", TileDimensions)}
-              >
-                tile
-              </button>
+              <div className="flex flex-col gap-1">
+                <input
+                  className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+                  placeholder="Enter URL"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                />
+                <input
+                  className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+                  placeholder="Enter Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                />
+                <button
+                  className="bg-white/50 px-2 py-1"
+                  onClick={() =>
+                    addWidget("Tile", TileDimensions, { name: title, url: url })
+                  }
+                >
+                  Add Tile
+                </button>
+              </div>
               <button
                 className="bg-white/50 px-2 py-1"
                 onClick={() => addWidget("Weather", WeatherDimensions)}

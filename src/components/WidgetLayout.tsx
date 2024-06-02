@@ -15,6 +15,7 @@ interface Widget {
   i: string;
   component: string;
   dimensions: Layout;
+  props?: { [key: string]: any };
 }
 
 interface WidgetLayout {
@@ -23,7 +24,7 @@ interface WidgetLayout {
   setWidgets: (widgets: any) => void;
 }
 
-const componentMap: { [key: string]: React.ComponentType } = {
+const componentMap: { [key: string]: React.ComponentType<any> } = {
   Time,
   Search,
   Todo,
@@ -38,7 +39,7 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
         className="layout"
         autoSize={true}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 20, md: 20, sm: 20, xs: 20, xxs: 20 }}
+        cols={{ lg: 25, md: 20, sm: 20, xs: 20, xxs: 20 }}
         rowHeight={15}
         margin={[10, 10]}
         draggableHandle=".widget"
@@ -73,7 +74,7 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
                   <CrossIcon />
                 </button>
               )}
-              <Component />
+              <Component {...widget.props} />
             </div>
           );
         })}
