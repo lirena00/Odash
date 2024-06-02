@@ -13,6 +13,7 @@ interface UserSettings {
   timeFormat: "24hr" | "12hr";
   temperatureFormat: "Fahrenheit" | "Celsius";
   backgroundImage: string;
+  backgroundBlur: number;
   city: string;
   theme_colors: string[];
 }
@@ -29,6 +30,7 @@ const defaultSettings: UserSettings = {
   temperatureFormat: "Celsius",
   city: "",
   backgroundImage: "/wallpaper1.jpg",
+  backgroundBlur: 0,
   theme_colors: [
     "rgb(214, 184, 160)",
     "rgb(82, 176, 187)",

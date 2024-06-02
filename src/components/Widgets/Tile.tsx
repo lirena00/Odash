@@ -7,12 +7,12 @@ export const TileDimensions = {
   h: 5,
 };
 interface TileProps {
-  name: string;
+  title: string;
   url: string;
   id: string;
 }
 
-const Tile: React.FC<TileProps> = ({ name, url }) => {
+const Tile: React.FC<TileProps> = ({ title, url, id }) => {
   const { settings } = useSettings();
   const theme = settings.theme;
   const themeClass =
@@ -33,7 +33,7 @@ const Tile: React.FC<TileProps> = ({ name, url }) => {
       />
 
       <div className="m-auto w-full  text-lg hidden text-center group-hover:block transform transition ease-out duration-300">
-        <span className="text-sm text-center">{name}</span>
+        <span className="text-sm text-center">{title}</span>
       </div>
     </div>
   );

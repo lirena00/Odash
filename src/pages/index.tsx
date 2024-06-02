@@ -40,7 +40,7 @@ export default function Home() {
       i: id,
       component,
       dimensions: { ...dimensions, i: id },
-      props: component === "Tile" ? { ...props, id } : null,
+      props: { ...props, id } || {},
     };
     setWidgets([...widgets, newWidget]);
   };

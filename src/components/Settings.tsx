@@ -299,7 +299,10 @@ const Settings = ({ addWidget }: SettingsProps) => {
                 <button
                   className="bg-white/50 px-2 py-1"
                   onClick={() =>
-                    addWidget("Tile", TileDimensions, { name: title, url: url })
+                    addWidget("Tile", TileDimensions, {
+                      title: title,
+                      url: url,
+                    })
                   }
                 >
                   Add Tile
