@@ -42,7 +42,7 @@ const useBackgroundImageWithAccent = (imageUrl: string) => {
       }
       document.documentElement.style.removeProperty("--accent-color");
     };
-  }, [imageUrl]);
+  }, [imageUrl, settings.backgroundImage]);
 };
 
 export default useBackgroundImageWithAccent;

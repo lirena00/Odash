@@ -8,6 +8,7 @@ import Tile from "@/components/Widgets/Tile";
 import Search from "@/components/Widgets/Search";
 import Todo from "@/components/Widgets/Todo";
 import Weather from "@/components/Widgets/Weather";
+import Countdown from "./Widgets/Countdown";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -29,6 +30,7 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
   Search,
   Todo,
   Tile,
+  Countdown,
   Weather,
 };
 
