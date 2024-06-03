@@ -354,9 +354,9 @@ const Settings = ({ addWidget }: SettingsProps) => {
                 <button
                   className="bg-white/50 px-2 py-1"
                   onClick={() =>
-                    addWidget("Countdown", CountdownDimensions, {
-                      title: countdown_title,
-                      date: new Date(countdown_date),
+                    addWidget("Tile", TileDimensions, {
+                      title: title,
+                      url: url,
                     })
                   }
                 >

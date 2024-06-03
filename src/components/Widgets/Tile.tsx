@@ -4,7 +4,11 @@ export const TileDimensions = {
   x: 0,
   y: 0,
   w: 2,
-  h: 5,
+  h: 4,
+  minH: 4,
+  minW: 2,
+  maxH: 5,
+  maxW: 3,
 };
 interface TileProps {
   title: string;
