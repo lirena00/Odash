@@ -32,13 +32,14 @@ const Countdown: React.FC<CountdownProps> = ({ title, date, id }) => {
   // Function to calculate days left
   const calculateDaysLeft = (targetDate: Date) => {
     const currentDate = new Date();
+    targetDate = new Date(targetDate);
     console.log(targetDate);
     console.log(currentDate);
     const timeDiff = targetDate.getTime() - currentDate.getTime();
-    return Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return Math.round(Math.abs(timeDiff / (1000 * 3600 * 24)));
   };
 
-  const [daysLeft, setDaysLeft] = useState(calculateDaysLeft(date));
+  const [daysLeft, setDaysLeft] = useState(1);
 
   // Update days left when the component mounts or when the date prop changes
   useEffect(() => {
