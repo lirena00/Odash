@@ -8,7 +8,8 @@ import Tile from "@/components/Widgets/Tile";
 import Search from "@/components/Widgets/Search";
 import Todo from "@/components/Widgets/Todo";
 import Weather from "@/components/Widgets/Weather";
-import Countdown from "./Widgets/Countdown";
+import Countdown from "@/components/Widgets/Countdown";
+import Note from "@/components/Widgets/Note";
 
 const ResponsiveGridLayout = WidthProvider(Responsive);
 
@@ -29,12 +30,22 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
   Time,
   Search,
   Todo,
+  Weather,
   Tile,
   Countdown,
-  Weather,
+  Note,
 };
 
 const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
+  const handleNoteUpdate = (id: string, title: string, description: string) => {
+    const updatedWidgets = widgets.map((widget: Widget) =>
+      widget.i === id
+        ? { ...widget, props: { ...widget.props, title, description } }
+        : widget
+    );
+    setWidgets(updatedWidgets);
+  };
+
   return (
     <>
       <ResponsiveGridLayout
@@ -76,7 +87,11 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
                   <CrossIcon />
                 </button>
               )}
-              <Component {...widget.props} />
+              {widget.component === "Note" ? (
+                <Component {...widget.props} onUpdate={handleNoteUpdate} />
+              ) : (
+                <Component {...widget.props} />
+              )}
             </div>
           );
         })}

@@ -9,6 +9,7 @@ import { TimeDimensions } from "@/components/Widgets/Time";
 import { TileDimensions } from "@/components/Widgets/Tile";
 import { WeatherDimensions } from "@/components/Widgets/Weather";
 import { CountdownDimensions } from "@/components/Widgets/Countdown";
+import { NoteDimensions } from "@/components/Widgets/Note";
 
 import { getContrastingColor } from "@/utils/colorUtils";
 
@@ -363,6 +364,18 @@ const Settings = ({ addWidget }: SettingsProps) => {
                   Add Tile
                 </button>
               </div>
+
+              <button
+                className="bg-white/50 px-2 py-1"
+                onClick={() =>
+                  addWidget("Note", NoteDimensions, {
+                    title: "Note",
+                    description: "",
+                  })
+                }
+              >
+                Note
+              </button>
 
               <button
                 className="bg-white/50 px-2 py-1"

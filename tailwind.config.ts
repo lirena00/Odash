@@ -8,22 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily:{
-        'comfortaa':['comfortaa','sans-serif']
+      fontFamily: {
+        comfortaa: ["comfortaa", "sans-serif"],
       },
       colors: {
-        'text': '#e3e8eb',
-        'solid-text': 'var(--solid-text-color)',
-        'background': '#070a0c',
-        'primary': '#97bed1',
-        'secondary': '#275b73',
-        'accent': 'var(--accent-color)' ,
-       },         
+        text: "#e3e8eb",
+        "solid-text": "var(--solid-text-color)",
+        background: "#070a0c",
+        primary: "#97bed1",
+        secondary: "#275b73",
+        accent: "var(--accent-color)",
+      },
     },
-    
   },
 
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
 export default config;
 
