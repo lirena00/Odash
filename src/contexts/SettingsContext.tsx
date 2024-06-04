@@ -8,6 +8,7 @@ import React, {
 
 // Define the shape of the user settings
 interface UserSettings {
+  version: string;
   searchEngine: "google" | "bing" | "duckduckgo";
   theme: "light" | "dark" | "solid";
   timeFormat: "24hr" | "12hr";
@@ -15,6 +16,8 @@ interface UserSettings {
   backgroundImage: string;
   backgroundBlur: number;
   city: string;
+  accent_color: string;
+  text_color: string;
   theme_colors: string[];
 }
 
@@ -24,6 +27,7 @@ interface SettingsContextProps {
 }
 
 const defaultSettings: UserSettings = {
+  version: "1.0.0",
   searchEngine: "google",
   theme: "dark",
   timeFormat: "24hr",
@@ -31,6 +35,8 @@ const defaultSettings: UserSettings = {
   city: "",
   backgroundImage: "/wallpaper1.jpg",
   backgroundBlur: 0,
+  text_color: "rgb(0,0,0)",
+  accent_color: "rgb(214, 184, 160)",
   theme_colors: [
     "rgb(214, 184, 160)",
     "rgb(82, 176, 187)",
@@ -62,7 +68,20 @@ export const SettingsProvider: React.FC<{ children: ReactNode }> = ({
   useEffect(() => {
     const storedSettings = localStorage.getItem("userSettings");
     if (storedSettings) {
-      setSettings(JSON.parse(storedSettings));
+      const parsedSettings: UserSettings = JSON.parse(storedSettings);
+
+      // Check for version mismatch
+      if (parsedSettings.version !== defaultSettings.version) {
+        // Update settings with defaults, but keep existing values where possible
+        const updatedSettings = {
+          ...defaultSettings,
+          ...parsedSettings,
+          version: defaultSettings.version, // Ensure the version is updated
+        };
+        setSettings(updatedSettings);
+      } else {
+        setSettings(parsedSettings);
+      }
     }
     setIsLoading(false); // Loading is complete
   }, []);

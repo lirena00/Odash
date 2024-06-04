@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import Nav from "@/components/Nav";
 import dynamic from "next/dynamic";
 import { v4 as uuidv4 } from "uuid";
-import useBackgroundImageWithAccent from "@/hooks/useBackgroundImageWithAccent";
+import useBackgroundImage from "@/hooks/useBackground";
 import { Layout } from "react-grid-layout";
 import { useSettings } from "@/contexts/SettingsContext";
+import useBackground from "@/hooks/useBackground";
 const WidgetLayout = dynamic(() => import("@/components/WidgetLayout"), {
   ssr: false,
 });
@@ -45,7 +46,7 @@ export default function Home() {
     setWidgets([...widgets, newWidget]);
   };
 
-  useBackgroundImageWithAccent(backgroundImage);
+  useBackground();
 
   const [edit, setEdit] = useState(false);
   return (

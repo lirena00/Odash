@@ -22,12 +22,16 @@ interface SettingsProps {
 }
 
 const Settings = ({ addWidget }: SettingsProps) => {
+  const { settings, updateSettings } = useSettings();
   const [active, setActive] = useState("general");
   const [url, setUrl] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [countdown_title, setCountdown_title] = useState<string>("");
   const [countdown_date, setCountdown_date] = useState<Date>(new Date());
-  const { settings, updateSettings } = useSettings();
+  const [backgroundBlur, setBackgroundBlur] = useState<number>(
+    settings.backgroundBlur
+  );
+
   const getInitialColor = () =>
     getComputedStyle(document.documentElement)
       .getPropertyValue("--accent-color")
@@ -76,6 +80,12 @@ const Settings = ({ addWidget }: SettingsProps) => {
     updateSettings({ backgroundImage: url });
   };
 
+  const handleBlurChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newBlur = parseInt(event.target.value);
+    setBackgroundBlur(newBlur);
+    updateSettings({ ...settings, backgroundBlur: newBlur });
+  };
+
   const isValidUrl = (url: string): boolean => {
     try {
       new URL(url);
@@ -118,7 +128,7 @@ const Settings = ({ addWidget }: SettingsProps) => {
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: -20, opacity: 0 }}
       transition={{ duration: 0.1 }}
-      className="h-screen w-[500px] gap-4 p-2 z-40 backdrop-blur-lg bg-black/70 flex absolute left-full"
+      className="h-screen w-[500px] gap-4 p-2 z-40 backdrop-blur-lg bg-black/80 flex absolute left-full"
     >
       <div className="w-1/3 space-y-4 flex flex-col">
         <span className="font-semibold text-lg">Settings</span>
@@ -287,6 +297,18 @@ const Settings = ({ addWidget }: SettingsProps) => {
                   style={{ backgroundColor: customColor }}
                 />
               </div>
+            </div>
+
+            <div className="flex flex-col">
+              <span className="font-semibold">Theme</span>
+              <input
+                type="range"
+                min="0"
+                max="50"
+                value={backgroundBlur}
+                onChange={handleBlurChange}
+                className=""
+              />
             </div>
           </div>
         )}

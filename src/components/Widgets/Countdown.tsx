@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useSettings } from "@/contexts/SettingsContext";
-import { min } from "lodash";
 
 export const CountdownDimensions = {
   x: 0,
