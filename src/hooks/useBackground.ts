@@ -18,7 +18,7 @@ const useBackground = () => {
       bodyElement.style.height = "100vh";
       bodyElement.style.zIndex = "-1";
       if (backgroundBlur > 0) {
-        bodyElement.style.backdropFilter = `blur(40px)`;
+        bodyElement.style.backdropFilter = `blur(${backgroundBlur}px)`;
       }
     }
 

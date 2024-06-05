@@ -101,10 +101,7 @@ const Settings = ({ addWidget }: SettingsProps) => {
   ): void => {
     const inputValue = e.target.value;
 
-    console.log("inputValue");
-
     if (isValidUrl(inputValue)) {
-      console.log("whee");
       updateSettings({ backgroundImage: inputValue });
     }
   };
