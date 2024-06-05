@@ -93,7 +93,7 @@ const Weather = () => {
 
   return (
     <div
-      className={`widget w-full h-full space-y-2 rounded-md p-2 ${
+      className={`widget w-full h-full overflow-auto space-y-2 rounded-md p-2 ${
         theme === "dark"
           ? "dark"
           : theme === "light"
