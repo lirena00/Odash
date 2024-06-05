@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import { debounce } from "lodash";
+import { useCallback, useEffect } from "react";
 import { GithubIcon } from "@/components/Icons/GithubIcon";
 import { DiscordIcon } from "@/components/Icons/DiscordIcon";
 import { useState } from "react";
@@ -121,12 +123,36 @@ const Settings = ({ addWidget }: SettingsProps) => {
   ) => {
     const color = event.target.value;
     setCustomColor(color);
+
     document.documentElement.style.setProperty("--accent-color", color);
     const contrastingColor = getContrastingColor(color);
     document.documentElement.style.setProperty(
       "--solid-text-color",
       contrastingColor
     );
+  };
+
+  useEffect(() => {
+    const handleDebounce = debounce(() => {
+      const contrastingColor = getContrastingColor(customColor);
+      updateSettings({
+        accent_color: customColor,
+        text_color: contrastingColor,
+      });
+    }, 2000);
+
+    handleDebounce();
+
+    return () => {
+      handleDebounce.cancel();
+    };
+  }, [customColor, updateSettings]);
+
+  const handleColorChange = (color: string) => {
+    updateSettings({
+      accent_color: color,
+      text_color: getContrastingColor(color),
+    });
   };
   return (
     <motion.div
@@ -289,12 +315,7 @@ const Settings = ({ addWidget }: SettingsProps) => {
                     key={index}
                     className="w-8 h-8 rounded-full bg-transparent px-2 py-1.5 outline-none "
                     style={{ backgroundColor: color }}
-                    onClick={() =>
-                      document.documentElement.style.setProperty(
-                        "--accent-color",
-                        color
-                      )
-                    }
+                    onClick={() => handleColorChange(color)}
                   />
                 ))}
                 <input
