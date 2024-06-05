@@ -12,6 +12,8 @@ import { CountdownDimensions } from "@/components/Widgets/Countdown";
 import { NoteDimensions } from "@/components/Widgets/Note";
 
 import { getContrastingColor } from "@/utils/colorUtils";
+import { getPalette } from "@/utils/colorUtils";
+import { get } from "lodash";
 
 interface SettingsProps {
   addWidget: (
@@ -76,8 +78,16 @@ const Settings = ({ addWidget }: SettingsProps) => {
     });
   };
 
-  const handleWallpaperChange = (url: string) => {
-    updateSettings({ backgroundImage: url });
+  const handleWallpaperChange = async (url: string) => {
+    const palette = await getPalette(url);
+    const accentColor = palette[0];
+    const textColor = getContrastingColor(palette[0]);
+    updateSettings({
+      backgroundImage: url,
+      theme_colors: palette,
+      accent_color: accentColor,
+      text_color: textColor,
+    });
   };
 
   const handleBlurChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,7 +112,7 @@ const Settings = ({ addWidget }: SettingsProps) => {
     const inputValue = e.target.value;
 
     if (isValidUrl(inputValue)) {
-      updateSettings({ backgroundImage: inputValue });
+      handleWallpaperChange(inputValue);
     }
   };
 

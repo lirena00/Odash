@@ -32,8 +32,6 @@ const Countdown: React.FC<CountdownProps> = ({ title, date, id }) => {
   const calculateDaysLeft = (targetDate: Date) => {
     const currentDate = new Date();
     targetDate = new Date(targetDate);
-    console.log(targetDate);
-    console.log(currentDate);
     const timeDiff = targetDate.getTime() - currentDate.getTime();
     return Math.round(Math.abs(timeDiff / (1000 * 3600 * 24)));
   };
