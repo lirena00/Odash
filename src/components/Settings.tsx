@@ -185,6 +185,7 @@ const Settings = ({ addWidget }: SettingsProps) => {
                 <option value="google">Google</option>
                 <option value="bing">Bing</option>
                 <option value="duckduckgo">Duckduckgo</option>
+                <option value="perplexity">Perplexity</option>
               </select>
             </div>
 

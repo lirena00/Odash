@@ -16,8 +16,6 @@ export const getDominantColor = (image: HTMLImageElement): string[] => {
 
 export const getContrastingColor = (rgb: string): string => {
   const color = chroma(rgb);
-  // Calculate contrasting color (e.g., complementary color)
-  //const contrastingColor = color.luminance() > 0.5 ? '#ffffff' : '#000000';
   return color.luminance() > 0.5 ? "#000000" : "#ffffff";
 };
 

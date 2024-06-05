@@ -9,7 +9,7 @@ import React, {
 // Define the shape of the user settings
 interface UserSettings {
   version: string;
-  searchEngine: "google" | "bing" | "duckduckgo";
+  searchEngine: "google" | "bing" | "duckduckgo" | "perplexity";
   theme: "light" | "dark" | "solid";
   timeFormat: "24hr" | "12hr";
   temperatureFormat: "Fahrenheit" | "Celsius";

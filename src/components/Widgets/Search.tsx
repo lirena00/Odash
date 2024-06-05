@@ -1,6 +1,7 @@
 import { GoogleIcon } from "@/components/Icons/GoogleIcon";
 import { BingIcon } from "@/components/Icons/BingIcon";
 import { DuckDuckGoIcon } from "@/components/Icons/DuckDuckGoIcon";
+import { PerplexityIcon } from "@/components/Icons/PerplexityIcon";
 import { useSettings } from "@/contexts/SettingsContext";
 import React, { useState } from "react";
 
@@ -34,6 +35,9 @@ const Search = () => {
       case "duckduckgo":
         searchUrl = `https://duckduckgo.com/?q=${query}`;
         break;
+      case "perplexity":
+        searchUrl = `https://www.perplexity.ai/search?q=${query}`;
+        break;
     }
     window.location.href = searchUrl;
   };
@@ -59,8 +63,10 @@ const Search = () => {
           <GoogleIcon />
         ) : searchEngine === "bing" ? (
           <BingIcon />
-        ) : (
+        ) : searchEngine === "duckduckgo" ? (
           <DuckDuckGoIcon />
+        ) : (
+          <PerplexityIcon />
         )}
       </div>
       <input

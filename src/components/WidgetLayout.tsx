@@ -52,7 +52,7 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
         className="layout"
         autoSize={true}
         breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 25, md: 20, sm: 20, xs: 20, xxs: 20 }}
+        cols={{ lg: 25, md: 25, sm: 25, xs: 25, xxs: 25 }}
         rowHeight={15}
         margin={[10, 10]}
         draggableHandle=".widget"
