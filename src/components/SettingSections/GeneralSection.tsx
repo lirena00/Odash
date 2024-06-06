@@ -1,26 +1,37 @@
 import { useSettings } from "@/contexts/SettingsContext";
+import * as Select from "@radix-ui/react-select";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CheckIcon,
+} from "@radix-ui/react-icons";
 
 const GeneralSection = () => {
   const { settings, updateSettings } = useSettings();
-  const handleSearchEngineChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+
+  const searchEngineOptions = [
+    { value: "google", label: "Google" },
+    { value: "bing", label: "Bing" },
+    { value: "duckduckgo", label: "Duckduckgo" },
+    { value: "perplexity", label: "Perplexity" },
+  ];
+
+  const timeFormatOptions = ["24hr", "12hr"];
+  const temperatureFormatOptions = ["Fahrenheit", "Celsius"];
+
+  const handleSearchEngineChange = (value: string) => {
     updateSettings({
-      searchEngine: event.target.value as "google" | "bing" | "duckduckgo",
+      searchEngine: value as "google" | "bing" | "duckduckgo" | "perplexity",
     });
   };
 
-  const handleTimeFormatChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    updateSettings({ timeFormat: event.target.value as "24hr" | "12hr" });
+  const handleTimeFormatChange = (value: string) => {
+    updateSettings({ timeFormat: value as "24hr" | "12hr" });
   };
 
-  const handleTemperatureFormatChange = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleTemperatureFormatChange = (value: string) => {
     updateSettings({
-      temperatureFormat: event.target.value as "Fahrenheit" | "Celsius",
+      temperatureFormat: value as "Fahrenheit" | "Celsius",
     });
   };
 
@@ -34,40 +45,119 @@ const GeneralSection = () => {
     <div className="space-y-4">
       <div className="flex flex-col">
         <span className="font-semibold">Search Engine</span>
-        <select
-          className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+        <Select.Root
           value={settings.searchEngine}
-          onChange={handleSearchEngineChange}
+          onValueChange={handleSearchEngineChange}
         >
-          <option value="google">Google</option>
-          <option value="bing">Bing</option>
-          <option value="duckduckgo">Duckduckgo</option>
-          <option value="perplexity">Perplexity</option>
-        </select>
+          <Select.Trigger className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
+            <Select.Value />
+            <Select.Icon>
+              <ChevronDownIcon />
+            </Select.Icon>
+          </Select.Trigger>
+          <Select.Portal>
+            <Select.Content className="z-20 rounded-sm bg-black border p-1 outline-none border-gray-300">
+              <Select.ScrollUpButton className="flex items-center justify-center">
+                <ChevronUpIcon />
+              </Select.ScrollUpButton>
+              <Select.Viewport>
+                {searchEngineOptions.map((option) => (
+                  <Select.Item
+                    key={option.value}
+                    value={option.value}
+                    className="px-1 py-1.5 hover:bg-gray-800/60 flex items-center justify-between cursor-pointer"
+                  >
+                    <Select.ItemText>{option.label}</Select.ItemText>
+                    <Select.ItemIndicator>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                ))}
+              </Select.Viewport>
+              <Select.ScrollDownButton className="flex items-center justify-center">
+                <ChevronDownIcon />
+              </Select.ScrollDownButton>
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
       </div>
 
       <div className="flex flex-col">
         <span className="font-semibold">Time Format</span>
-        <select
-          className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+        <Select.Root
           value={settings.timeFormat}
-          onChange={handleTimeFormatChange}
+          onValueChange={handleTimeFormatChange}
         >
-          <option value="24hr">24 Hour</option>
-          <option value="12hr">12 Hour</option>
-        </select>
+          <Select.Trigger className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
+            <Select.Value />
+            <Select.Icon>
+              <ChevronDownIcon />
+            </Select.Icon>
+          </Select.Trigger>
+          <Select.Portal>
+            <Select.Content className="z-20 rounded-sm bg-black border p-1 outline-none border-gray-300">
+              <Select.ScrollUpButton className="flex items-center justify-center">
+                <ChevronUpIcon />
+              </Select.ScrollUpButton>
+              <Select.Viewport>
+                {timeFormatOptions.map((option) => (
+                  <Select.Item
+                    key={option}
+                    value={option}
+                    className="px-1 py-1.5 hover:bg-gray-800/60 flex items-center justify-between cursor-pointer"
+                  >
+                    <Select.ItemText>{option}</Select.ItemText>
+                    <Select.ItemIndicator>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                ))}
+              </Select.Viewport>
+              <Select.ScrollDownButton className="flex items-center justify-center">
+                <ChevronDownIcon />
+              </Select.ScrollDownButton>
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
       </div>
 
       <div className="flex flex-col">
         <span className="font-semibold">Temperature Format</span>
-        <select
-          className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+        <Select.Root
           value={settings.temperatureFormat}
-          onChange={handleTemperatureFormatChange}
+          onValueChange={handleTemperatureFormatChange}
         >
-          <option value="Fahrenheit">Fahrenheit</option>
-          <option value="Celsius">Celsius</option>
-        </select>
+          <Select.Trigger className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
+            <Select.Value />
+            <Select.Icon>
+              <ChevronDownIcon />
+            </Select.Icon>
+          </Select.Trigger>
+          <Select.Portal>
+            <Select.Content className="z-20 rounded-sm bg-black border p-1 outline-none border-gray-300">
+              <Select.ScrollUpButton className="flex items-center justify-center">
+                <ChevronUpIcon />
+              </Select.ScrollUpButton>
+              <Select.Viewport>
+                {temperatureFormatOptions.map((option) => (
+                  <Select.Item
+                    key={option}
+                    value={option}
+                    className="px-1 py-1.5 hover:bg-gray-800/60 flex items-center justify-between cursor-pointer"
+                  >
+                    <Select.ItemText>{option}</Select.ItemText>
+                    <Select.ItemIndicator>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                ))}
+              </Select.Viewport>
+              <Select.ScrollDownButton className="flex items-center justify-center">
+                <ChevronDownIcon />
+              </Select.ScrollDownButton>
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
       </div>
 
       <div className="flex flex-col">

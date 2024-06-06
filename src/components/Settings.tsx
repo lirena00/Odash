@@ -26,7 +26,7 @@ const Settings = ({ addWidget }: SettingsProps) => {
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: -20, opacity: 0 }}
       transition={{ duration: 0.1 }}
-      className="h-screen w-[500px] gap-4 p-2 z-40 backdrop-blur-lg bg-black/80 flex absolute left-full"
+      className="h-screen w-[500px] gap-4 p-2 z-10 backdrop-blur-lg bg-black/80 flex absolute left-full"
     >
       <div className="w-1/3 space-y-4 flex flex-col">
         <span className="font-semibold text-lg">Settings</span>

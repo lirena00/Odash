@@ -3,6 +3,14 @@ import { useEffect, useState } from "react";
 import { getContrastingColor, getPalette } from "@/utils/colorUtils";
 import { debounce } from "lodash";
 
+import * as Select from "@radix-ui/react-select";
+import * as Slider from "@radix-ui/react-slider";
+import {
+  ChevronDownIcon,
+  ChevronUpIcon,
+  CheckIcon,
+} from "@radix-ui/react-icons";
+
 const AppearanceSection = () => {
   const { settings, updateSettings } = useSettings();
   const [backgroundBlur, setBackgroundBlur] = useState<number>(
@@ -14,6 +22,13 @@ const AppearanceSection = () => {
       .getPropertyValue("--accent-color")
       .trim();
   const [customColor, setCustomColor] = useState(getInitialColor);
+
+  const themeOptions = [
+    { value: "dark", label: "Dark" },
+    { value: "light", label: "Light" },
+    { value: "solid", label: "Solid" },
+  ];
+
   const wallpapers = [
     "/wallpaper1.jpg",
     "/wallpaper2.jpg",
@@ -22,8 +37,8 @@ const AppearanceSection = () => {
     "/wallpaper5.jpg",
   ];
 
-  const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    updateSettings({ theme: event.target.value as "light" | "dark" | "solid" });
+  const handleThemeChange = (value: string) => {
+    updateSettings({ theme: value as "light" | "dark" | "solid" });
   };
 
   const handleWallpaperChange = async (url: string) => {
@@ -38,8 +53,8 @@ const AppearanceSection = () => {
     });
   };
 
-  const handleBlurChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newBlur = parseInt(event.target.value);
+  const handleBlurChange = (value: number[]) => {
+    const newBlur = value[0];
     setBackgroundBlur(newBlur);
     updateSettings({ ...settings, backgroundBlur: newBlur });
   };
@@ -107,15 +122,38 @@ const AppearanceSection = () => {
     <div className="space-y-4">
       <div className="flex flex-col">
         <span className="font-semibold">Theme</span>
-        <select
-          className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
-          value={settings.theme}
-          onChange={handleThemeChange}
-        >
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-          <option value="solid">Solid</option>
-        </select>
+        <Select.Root value={settings.theme} onValueChange={handleThemeChange}>
+          <Select.Trigger className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
+            <Select.Value />
+            <Select.Icon>
+              <ChevronDownIcon />
+            </Select.Icon>
+          </Select.Trigger>
+          <Select.Portal>
+            <Select.Content className="z-20 rounded-sm bg-black border p-1 outline-none border-gray-300">
+              <Select.ScrollUpButton className="flex items-center justify-center">
+                <ChevronUpIcon />
+              </Select.ScrollUpButton>
+              <Select.Viewport>
+                {themeOptions.map((option) => (
+                  <Select.Item
+                    key={option.value}
+                    value={option.value}
+                    className="px-1 py-1.5 hover:bg-gray-800/60 flex items-center justify-between cursor-pointer"
+                  >
+                    <Select.ItemText>{option.label}</Select.ItemText>
+                    <Select.ItemIndicator>
+                      <CheckIcon />
+                    </Select.ItemIndicator>
+                  </Select.Item>
+                ))}
+              </Select.Viewport>
+              <Select.ScrollDownButton className="flex items-center justify-center">
+                <ChevronDownIcon />
+              </Select.ScrollDownButton>
+            </Select.Content>
+          </Select.Portal>
+        </Select.Root>
       </div>
 
       <div className="flex flex-col space-y-1">
@@ -172,15 +210,20 @@ const AppearanceSection = () => {
       </div>
 
       <div className="flex flex-col">
-        <span className="font-semibold">Theme</span>
-        <input
-          type="range"
-          min="0"
-          max="50"
-          value={backgroundBlur}
-          onChange={handleBlurChange}
-          className=""
-        />
+        <span className="font-semibold">Background Blur</span>
+        <Slider.Root
+          className="relative flex items-center select-none touch-none w-full h-5"
+          value={[backgroundBlur]}
+          onValueChange={handleBlurChange}
+          max={50}
+          step={1}
+          aria-label="Background Blur"
+        >
+          <Slider.Track className="bg-gray-300 relative flex-grow rounded-full h-1">
+            <Slider.Range className="absolute bg-gray-600 h-full rounded-full" />
+          </Slider.Track>
+          <Slider.Thumb className="block w-4 h-4 bg-gray-600 rounded-full focus:shadow-[0_0_0_5px] focus:shadow-black/50" />
+        </Slider.Root>
       </div>
     </div>
   );
