@@ -71,7 +71,7 @@ const Search = () => {
       </div>
       <input
         type="text"
-        className={`w-full bg-transparent outline-none px-1 `}
+        className={`w-full bg-transparent outline-none px-1 placeholder:text-white/50`}
         placeholder="Search..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
