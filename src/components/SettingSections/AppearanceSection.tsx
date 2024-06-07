@@ -123,14 +123,14 @@ const AppearanceSection = () => {
       <div className="flex flex-col">
         <span className="font-semibold">Theme</span>
         <Select.Root value={settings.theme} onValueChange={handleThemeChange}>
-          <Select.Trigger className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
+          <Select.Trigger className="rounded-md bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
             <Select.Value />
             <Select.Icon>
               <ChevronDownIcon />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-20 rounded-sm bg-black border p-1 outline-none border-gray-300">
+            <Select.Content className="z-20 rounded-md bg-black border p-1 outline-none border-gray-300">
               <Select.ScrollUpButton className="flex items-center justify-center">
                 <ChevronUpIcon />
               </Select.ScrollUpButton>
@@ -162,9 +162,9 @@ const AppearanceSection = () => {
           <img
             src={settings.backgroundImage}
             alt="Wallpaper"
-            className="rounded-sm border w-full h-full   border-gray-300 brightness-50"
+            className="rounded-md border w-full h-full   border-gray-300 brightness-50"
           />
-          <div className="px-2 text-center py-1 rounded-sm bg-gray-300/20 border-gray-300 border absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <div className="px-2 text-center py-1 rounded-md bg-gray-300/20 border-gray-300 border absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
             Current wallpaper
           </div>
         </div>
@@ -172,7 +172,7 @@ const AppearanceSection = () => {
           {wallpapers.map((wallpaper, index) => (
             <img
               key={index}
-              className={`rounded-sm ${
+              className={`rounded-md ${
                 settings.backgroundImage === wallpaper ? "hidden" : ""
               }`}
               alt={`wallpaper${index + 1}`}
@@ -184,7 +184,7 @@ const AppearanceSection = () => {
         <input
           onChange={handleWallpaperURLChange}
           placeholder="Enter URL of your wallpaper"
-          className="rounded-sm text-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+          className="rounded-md text-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
         />
       </div>
 

@@ -49,14 +49,14 @@ const GeneralSection = () => {
           value={settings.searchEngine}
           onValueChange={handleSearchEngineChange}
         >
-          <Select.Trigger className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
+          <Select.Trigger className="rounded-md bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
             <Select.Value />
             <Select.Icon>
               <ChevronDownIcon />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-20 rounded-sm bg-black border p-1 outline-none border-gray-300">
+            <Select.Content className="z-20 rounded-md bg-black border p-1 outline-none border-gray-300">
               <Select.ScrollUpButton className="flex items-center justify-center">
                 <ChevronUpIcon />
               </Select.ScrollUpButton>
@@ -88,14 +88,14 @@ const GeneralSection = () => {
           value={settings.timeFormat}
           onValueChange={handleTimeFormatChange}
         >
-          <Select.Trigger className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
+          <Select.Trigger className="rounded-md bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
             <Select.Value />
             <Select.Icon>
               <ChevronDownIcon />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-20 rounded-sm bg-black border p-1 outline-none border-gray-300">
+            <Select.Content className="z-20 rounded-md bg-black border p-1 outline-none border-gray-300">
               <Select.ScrollUpButton className="flex items-center justify-center">
                 <ChevronUpIcon />
               </Select.ScrollUpButton>
@@ -127,14 +127,14 @@ const GeneralSection = () => {
           value={settings.temperatureFormat}
           onValueChange={handleTemperatureFormatChange}
         >
-          <Select.Trigger className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
+          <Select.Trigger className="rounded-md bg-transparent px-2 py-1.5 outline-none border-gray-300 border inline-flex items-center justify-between">
             <Select.Value />
             <Select.Icon>
               <ChevronDownIcon />
             </Select.Icon>
           </Select.Trigger>
           <Select.Portal>
-            <Select.Content className="z-20 rounded-sm bg-black border p-1 outline-none border-gray-300">
+            <Select.Content className="z-20 rounded-md bg-black border p-1 outline-none border-gray-300">
               <Select.ScrollUpButton className="flex items-center justify-center">
                 <ChevronUpIcon />
               </Select.ScrollUpButton>
@@ -163,7 +163,7 @@ const GeneralSection = () => {
       <div className="flex flex-col">
         <span className="font-semibold">City</span>
         <input
-          className="rounded-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+          className="rounded-md bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
           value={settings.city}
           onChange={handleCityChange}
         />

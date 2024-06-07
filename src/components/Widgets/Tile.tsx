@@ -1,4 +1,5 @@
 import { useSettings } from "@/contexts/SettingsContext";
+import { DiceIcon } from "@/components/Icons/DiceIcon";
 
 export const TileDimensions = {
   x: 0,
@@ -13,10 +14,9 @@ export const TileDimensions = {
 interface TileProps {
   title: string;
   url: string;
-  id: string;
 }
 
-const Tile: React.FC<TileProps> = ({ title, url, id }) => {
+const Tile: React.FC<TileProps> = ({ title, url }) => {
   const { settings } = useSettings();
   const theme = settings.theme;
   const themeClass =
@@ -30,12 +30,17 @@ const Tile: React.FC<TileProps> = ({ title, url, id }) => {
     <div
       className={`group p-2 grid place-items-center widget rounded-md w-full h-full ${themeClass}`}
     >
-      <img
-        alt="Tile"
-        className="m-auto text-lg w-[50px] h-[50px] block group-hover:scale-90 transform transition ease-out duration-500 "
-        src={`https://www.google.com/s2/favicons?sz=128&domain=${url}`}
-      />
-
+      {title === "Example" ? (
+        <div className="text-6xl">
+          <DiceIcon />
+        </div>
+      ) : (
+        <img
+          alt="Tile"
+          className="m-auto text-lg w-[50px] h-[50px] block group-hover:scale-90 transform transition ease-out duration-500 "
+          src={`https://www.google.com/s2/favicons?sz=128&domain=${url}`}
+        />
+      )}
       <div className="m-auto w-full  text-lg hidden text-center group-hover:block transform transition ease-out duration-300">
         <span className="text-sm text-center">{title}</span>
       </div>

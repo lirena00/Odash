@@ -17,6 +17,41 @@ export const NoteDimensions = {
   maxH: 13,
 };
 
+export const NotePreview = () => {
+  const { settings } = useSettings();
+  const theme = settings.theme;
+  return (
+    <div
+      className={`widget w-full h-full max-h-96 overflow-y-auto space-y-2 rounded-md p-2 ${
+        theme === "dark"
+          ? "dark"
+          : theme === "light"
+          ? "light"
+          : "bg-accent text-solid-text"
+      } `}
+    >
+      <div className="flex justify-between items-center">
+        <input
+          defaultValue="Note"
+          className="text-2xl w-fit bg-transparent outline-none border-none max-w-[85%]"
+        />
+        <button className="bg-white/50 rounded-md p-2">
+          <PlusIcon />
+        </button>
+      </div>
+
+      <div className="flex flex-col gap-2 h-[85%]  overflow-y-auto">
+        <Markdown
+          remarkPlugins={[remarkGfm]}
+          className="prose text-white h-[85%]"
+        >
+          It *supports* ~~markdown~~
+        </Markdown>
+      </div>
+    </div>
+  );
+};
+
 interface NoteProps {
   title: string;
   description: string;
