@@ -48,12 +48,13 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
 
   const handleTodoUpdate = (
     id: string,
+    title: string,
     todos: { text: string; completed: boolean }[]
   ) => {
     setWidgets((prevWidgets: Widget[]) =>
       prevWidgets.map((widget) =>
         widget.i === id
-          ? { ...widget, props: { ...widget.props, todos } }
+          ? { ...widget, props: { ...widget.props, title, todos } }
           : widget
       )
     );

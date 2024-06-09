@@ -116,7 +116,9 @@ const WidgetSection = ({ addWidget }: SettingsProps) => {
           <div className="absolute top-0 right-0 p-2 w-full h-full grid place-items-center ">
             <button
               className="bg-white/50  transform transition-all duration-300 group-hover:opacity-100 opacity-0 text-black px-2 py-1 rounded-full"
-              onClick={() => addWidget("Todo", TodoDimensions, { todos: [] })}
+              onClick={() =>
+                addWidget("Todo", TodoDimensions, { title: "Todo", todos: [] })
+              }
             >
               Add Todo
             </button>

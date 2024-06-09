@@ -15,25 +15,65 @@ export const TodoDimensions = {
 };
 
 export const TodoPreview = () => {
-  return <div></div>;
+  const { settings } = useSettings();
+  const theme = settings.theme;
+
+  return (
+    <div
+      className={`widget w-full h-full max-h-96 overflow-y-auto space-y-2 rounded-md p-2 ${
+        theme === "dark"
+          ? "dark"
+          : theme === "light"
+          ? "light"
+          : "bg-accent text-solid-text"
+      } `}
+    >
+      <div className="flex justify-between items-center">
+        <span className="text-2xl">Todo</span>
+      </div>
+      <form className="flex gap-2 w-full">
+        <input
+          className="w-full rounded-md bg-white/50 outline-none px-2"
+          placeholder="Add a todo"
+        />
+        <button type="submit" className="bg-white/50 rounded-md p-2">
+          <PlusIcon />
+        </button>
+      </form>
+      <div className="flex flex-col gap-2 max-h-min overflow-y-auto">
+        <div className="text-white/70">No todos added yet.</div>
+      </div>
+    </div>
+  );
 };
 
 interface TodoProps {
   id: string;
   todos: { text: string; completed: boolean }[];
-  onUpdate: (id: string, todos: { text: string; completed: boolean }[]) => void;
+  title: string;
+  onUpdate: (
+    id: string,
+    title: string,
+    todos: { text: string; completed: boolean }[]
+  ) => void;
 }
 
-const Todo: React.FC<TodoProps> = ({ id, todos: initialTodos, onUpdate }) => {
+const Todo: React.FC<TodoProps> = ({
+  id,
+  todos: initialTodos,
+  title,
+  onUpdate,
+}) => {
   const { settings } = useSettings();
   const theme = settings.theme;
 
   const [todos, setTodos] = useState(initialTodos);
   const [newTodo, setNewTodo] = useState("");
+  const [todoTitle, setTodoTitle] = useState(title);
 
   useEffect(() => {
-    onUpdate(id, todos);
-  }, [todos, id, onUpdate]);
+    onUpdate(id, todoTitle, todos);
+  }, [todos, todoTitle, id, onUpdate]);
 
   const handleAddTodo = (event: React.FormEvent) => {
     event.preventDefault();
@@ -58,6 +98,10 @@ const Todo: React.FC<TodoProps> = ({ id, todos: initialTodos, onUpdate }) => {
     );
   };
 
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTodoTitle(event.target.value);
+  };
+
   return (
     <div
       className={`widget w-full h-full max-h-96 overflow-y-auto space-y-2 rounded-md p-2 ${
@@ -69,7 +113,11 @@ const Todo: React.FC<TodoProps> = ({ id, todos: initialTodos, onUpdate }) => {
       } `}
     >
       <div className="flex justify-between items-center">
-        <span className="text-2xl">Todo</span>
+        <input
+          value={todoTitle}
+          onChange={handleTitleChange}
+          className="text-2xl w-fit bg-transparent outline-none border-none max-w-[85%]"
+        />
       </div>
       <form onSubmit={handleAddTodo} className="flex gap-2 w-full">
         <input
