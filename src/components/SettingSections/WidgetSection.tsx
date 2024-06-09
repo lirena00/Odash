@@ -4,6 +4,7 @@ import Search from "@/components/Widgets/Search";
 import Time from "@/components/Widgets/Time";
 import Tile from "@/components/Widgets/Tile";
 import { NotePreview } from "@/components/Widgets/Note";
+import { TodoPreview } from "@/components/Widgets/Todo";
 import Todo from "@/components/Widgets/Todo";
 import Weather from "@/components/Widgets/Weather";
 import Countdown from "@/components/Widgets/Countdown";
@@ -111,11 +112,11 @@ const WidgetSection = ({ addWidget }: SettingsProps) => {
         </div>
 
         <div className="p-5 bg-gray-600/50 relative group border-gray-600 rounded-md ">
-          <Todo />
+          <TodoPreview />
           <div className="absolute top-0 right-0 p-2 w-full h-full grid place-items-center ">
             <button
               className="bg-white/50  transform transition-all duration-300 group-hover:opacity-100 opacity-0 text-black px-2 py-1 rounded-full"
-              onClick={() => addWidget("Todo", TodoDimensions)}
+              onClick={() => addWidget("Todo", TodoDimensions, { todos: [] })}
             >
               Add Todo
             </button>

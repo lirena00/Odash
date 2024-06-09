@@ -46,6 +46,19 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
     setWidgets(updatedWidgets);
   };
 
+  const handleTodoUpdate = (
+    id: string,
+    todos: { text: string; completed: boolean }[]
+  ) => {
+    setWidgets((prevWidgets: Widget[]) =>
+      prevWidgets.map((widget) =>
+        widget.i === id
+          ? { ...widget, props: { ...widget.props, todos } }
+          : widget
+      )
+    );
+  };
+
   return (
     <>
       <ResponsiveGridLayout
@@ -89,6 +102,8 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
               )}
               {widget.component === "Note" ? (
                 <Component {...widget.props} onUpdate={handleNoteUpdate} />
+              ) : widget.component === "Todo" ? (
+                <Component {...widget.props} onUpdate={handleTodoUpdate} />
               ) : (
                 <Component {...widget.props} />
               )}

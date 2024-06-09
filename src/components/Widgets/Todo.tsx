@@ -14,37 +14,26 @@ export const TodoDimensions = {
   maxH: 14,
 };
 
-const Todo = () => {
+export const TodoPreview = () => {
+  return <div></div>;
+};
+
+interface TodoProps {
+  id: string;
+  todos: { text: string; completed: boolean }[];
+  onUpdate: (id: string, todos: { text: string; completed: boolean }[]) => void;
+}
+
+const Todo: React.FC<TodoProps> = ({ id, todos: initialTodos, onUpdate }) => {
   const { settings } = useSettings();
   const theme = settings.theme;
 
-  const [todos, setTodos] = useState<{ text: string; completed: boolean }[]>(
-    () => {
-      if (typeof window !== "undefined") {
-        const cachedTodos = localStorage.getItem("todos");
-        if (cachedTodos) {
-          try {
-            return JSON.parse(cachedTodos);
-          } catch (error) {
-            console.error("Error parsing todos from localStorage:", error);
-          }
-        }
-      }
-      return [];
-    }
-  );
-
+  const [todos, setTodos] = useState(initialTodos);
   const [newTodo, setNewTodo] = useState("");
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      try {
-        localStorage.setItem("todos", JSON.stringify(todos));
-      } catch (error) {
-        console.error("Error saving todos to localStorage:", error);
-      }
-    }
-  }, [todos]);
+    onUpdate(id, todos);
+  }, [todos, id, onUpdate]);
 
   const handleAddTodo = (event: React.FormEvent) => {
     event.preventDefault();
