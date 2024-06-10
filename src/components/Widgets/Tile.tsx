@@ -15,7 +15,7 @@ export const TileDimensions = {
 interface TileProps {
   title: string;
   url: string;
-  edit: boolean;
+  edit?: boolean;
 }
 
 const Tile: React.FC<TileProps> = ({ title, url, edit }) => {
