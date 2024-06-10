@@ -36,7 +36,7 @@ const WidgetSection = ({ addWidget }: SettingsProps) => {
         <div className="p-5 bg-gray-600/50 relative space-y-2  border-gray-600 rounded-md grid place-items-center ">
           <div>
             <div className="relative ">
-              <Tile title="Example" url="https://animood.lirena.in/" />
+              <Tile title="Example" url="https://example.com/" />
               <div className="absolute top-0 right-0 w-full h-full"></div>
             </div>
           </div>
