@@ -69,7 +69,7 @@ const Settings = ({ addWidget }: SettingsProps) => {
             <DiscordIcon />
           </div>
           <div className="text-center text-gray-400">
-            <span className="text-sm">Redash</span>
+            <span className="text-sm">Odash</span>
           </div>
         </div>
       </div>
