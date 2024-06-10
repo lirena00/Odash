@@ -24,6 +24,7 @@ export default function Home() {
           <meta name="robots" content="index, follow" />
           <meta name="author" content="lirena00" />
           <meta name="title" content="Odash | Your New Tab, Your Way" />
+          <meta name="theme-color" content="#142c54" />
           <meta
             name="description"
             content="Personalize your new tab page with customizable widgets, custom colors, background blurs, themes, and wallpapers. Arrange todos, countdowns, notes, search bar, clock, and website links to suit your style and needs. Your new tab, your way."
