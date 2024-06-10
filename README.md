@@ -36,4 +36,4 @@ _... and more to come!_ (Contributions are welcome! espeically if you have a coo
 
 ## License
 
-Odash is licensed under the MIT License. See the [LICENSE](https://github.com/lirena00/odash/blob/main/LICENSE) file for more information.
+Odash is licensed under the MIT License. See the [LICENSE](https://github.com/LiReNa00/Odash/blob/master/LICENSE) file for more information.
