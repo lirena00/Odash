@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useWidgets } from "@/contexts/WidgetsContext";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import { Responsive, WidthProvider, Layout } from "react-grid-layout";
@@ -22,8 +23,6 @@ interface Widget {
 
 interface WidgetLayout {
   edit: boolean;
-  widgets: any;
-  setWidgets: (widgets: any) => void;
 }
 
 const componentMap: { [key: string]: React.ComponentType<any> } = {
@@ -36,7 +35,8 @@ const componentMap: { [key: string]: React.ComponentType<any> } = {
   Note,
 };
 
-const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
+const WidgetLayout = ({ edit }: WidgetLayout) => {
+  const { widgets, setWidgets } = useWidgets();
   const handleNoteUpdate = (id: string, title: string, description: string) => {
     const updatedWidgets = widgets.map((widget: Widget) =>
       widget.i === id
@@ -51,15 +51,13 @@ const WidgetLayout = ({ edit, widgets, setWidgets }: WidgetLayout) => {
     title: string,
     todos: { text: string; completed: boolean }[]
   ) => {
-    setWidgets((prevWidgets: Widget[]) =>
-      prevWidgets.map((widget) =>
-        widget.i === id
-          ? { ...widget, props: { ...widget.props, title, todos } }
-          : widget
-      )
+    const updatedWidgets = widgets.map((widget: Widget) =>
+      widget.i === id
+        ? { ...widget, props: { ...widget.props, title, todos } }
+        : widget
     );
+    setWidgets(updatedWidgets);
   };
-
   return (
     <ResponsiveGridLayout
       className="layout"

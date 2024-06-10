@@ -184,7 +184,7 @@ const AppearanceSection = () => {
         <input
           onChange={handleWallpaperURLChange}
           placeholder="Enter URL of your wallpaper"
-          className="rounded-md text-sm bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
+          className="rounded-md bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
         />
       </div>
 

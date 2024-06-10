@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { useWidgets } from "@/contexts/WidgetsContext";
 
 import Search from "@/components/Widgets/Search";
 import Time from "@/components/Widgets/Time";
 import Tile from "@/components/Widgets/Tile";
 import { NotePreview } from "@/components/Widgets/Note";
 import { TodoPreview } from "@/components/Widgets/Todo";
-import Todo from "@/components/Widgets/Todo";
 import Weather from "@/components/Widgets/Weather";
 import Countdown from "@/components/Widgets/Countdown";
 import { SearchDimensions } from "@/components/Widgets/Search";
@@ -16,19 +16,12 @@ import { WeatherDimensions } from "@/components/Widgets/Weather";
 import { CountdownDimensions } from "@/components/Widgets/Countdown";
 import { NoteDimensions } from "@/components/Widgets/Note";
 
-interface SettingsProps {
-  addWidget: (
-    component: string,
-    dimensions: any,
-    props?: { [key: string]: any }
-  ) => void;
-}
-
-const WidgetSection = ({ addWidget }: SettingsProps) => {
+const WidgetSection = () => {
   const [url, setUrl] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [countdown_title, setCountdown_title] = useState<string>("");
   const [countdown_date, setCountdown_date] = useState<Date>(new Date());
+  const { addWidget } = useWidgets();
   return (
     <div className="space-y-4">
       <span>Widgets</span>

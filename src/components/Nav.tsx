@@ -7,10 +7,9 @@ import { EditIcon } from "@/components/Icons/EditIcon";
 interface NavProps {
   edit: boolean;
   setEdit: (edit: boolean) => void;
-  addWidget: (component: string, dimensions: any) => void;
 }
 
-const Nav: React.FC<NavProps> = ({ edit, setEdit, addWidget }) => {
+const Nav: React.FC<NavProps> = ({ edit, setEdit }) => {
   const [tab, setTab] = useState("");
 
   return (
@@ -31,17 +30,9 @@ const Nav: React.FC<NavProps> = ({ edit, setEdit, addWidget }) => {
         </div>
       </div>
 
-      <AnimatePresence>
-        {tab === "settings" && <Settings addWidget={addWidget} />}
-      </AnimatePresence>
+      <AnimatePresence>{tab === "settings" && <Settings />}</AnimatePresence>
     </div>
   );
 };
 
 export default Nav;
-
-/*
-            <div className="absolute bottom-full z-50 mb-2 w-max bg-gray-800 text-white text-sm rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity">
-              Settings
-            </div>
-          */

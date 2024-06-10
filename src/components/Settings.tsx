@@ -7,16 +7,9 @@ import { DiscordIcon } from "@/components/Icons/DiscordIcon";
 import GeneralSection from "@/components/SettingSections/GeneralSection";
 import AppearanceSection from "@/components/SettingSections/AppearanceSection";
 import WidgetSection from "@/components/SettingSections/WidgetSection";
+import BackupSection from "@/components/SettingSections/BackupSection";
 
-interface SettingsProps {
-  addWidget: (
-    component: string,
-    dimensions: any,
-    props?: { [key: string]: any }
-  ) => void;
-}
-
-const Settings = ({ addWidget }: SettingsProps) => {
+const Settings = () => {
   const [active, setActive] = useState("general");
 
   return (
@@ -61,6 +54,16 @@ const Settings = ({ addWidget }: SettingsProps) => {
           >
             Widgets
           </li>
+          <li
+            onClick={() => setActive("backup")}
+            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm ${
+              active === "backup"
+                ? "bg-gray-800/60 border-l-2"
+                : "hover:bg-gray-600/30"
+            }`}
+          >
+            Backup
+          </li>
         </ul>
 
         <div className="mt-auto space-y-2 px-2 py-1.5 -m-2">
@@ -76,7 +79,8 @@ const Settings = ({ addWidget }: SettingsProps) => {
       <div className="p-2 max-h-screen overflow-y-auto w-2/3 -mr-2">
         {active === "general" && <GeneralSection />}
         {active === "appearance" && <AppearanceSection />}
-        {active === "widgets" && <WidgetSection addWidget={addWidget} />}
+        {active === "widgets" && <WidgetSection />}
+        {active === "backup" && <BackupSection />}
       </div>
     </motion.div>
   );

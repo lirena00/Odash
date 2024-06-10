@@ -1,68 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Nav from "@/components/Nav";
 import dynamic from "next/dynamic";
-import { v4 as uuidv4 } from "uuid";
-import useBackgroundImage from "@/hooks/useBackground";
-import { Layout } from "react-grid-layout";
-import { useSettings } from "@/contexts/SettingsContext";
 import useBackground from "@/hooks/useBackground";
+
 const WidgetLayout = dynamic(() => import("@/components/WidgetLayout"), {
   ssr: false,
 });
 
 export default function Home() {
-  const [widgets, setWidgets] = useState<
-    { i: string; component: string; dimensions: Layout }[]
-  >([]);
-  const { settings } = useSettings();
-
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const savedWidgets = localStorage.getItem("widgets");
-    if (savedWidgets) {
-      setWidgets(JSON.parse(savedWidgets));
-    }
-
-    setIsLoading(false);
-  }, []);
-
-  useEffect(() => {
-    if (!isLoading) {
-      localStorage.setItem("widgets", JSON.stringify(widgets));
-    }
-  }, [widgets, isLoading]);
-
-  const addWidget = (
-    component: string,
-    dimensions: any,
-    props?: { [key: string]: any }
-  ) => {
-    const id = uuidv4();
-    const newWidget = {
-      i: id,
-      component,
-      dimensions: { ...dimensions, i: id },
-      props: { ...props, id } || {},
-    };
-    setWidgets([...widgets, newWidget]);
-  };
-
   useBackground();
 
   const [edit, setEdit] = useState(false);
   return (
     <main className={`w-screen h-screen flex`}>
-      <Nav edit={edit} setEdit={setEdit} addWidget={addWidget} />
+      <Nav edit={edit} setEdit={setEdit} />
       <div className="w-screen h-screen overflow-y-auto ">
-        {widgets.length > 0 ? (
-          <WidgetLayout edit={edit} widgets={widgets} setWidgets={setWidgets} />
-        ) : (
-          <div className="w-full h-full grid place-items-center">
-            <span className="text-2xl p-2  backdrop-blur-lg bg-black/80 rounded-md">
-              Add widgets from settings.
-            </span>
-          </div>
-        )}
+        <WidgetLayout edit={edit} />
       </div>
     </main>
   );
