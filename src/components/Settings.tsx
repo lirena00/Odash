@@ -1,8 +1,13 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import Link from "next/link";
 
 import { GithubIcon } from "@/components/Icons/GithubIcon";
 import { DiscordIcon } from "@/components/Icons/DiscordIcon";
+import { BackupIcon } from "@/components/Icons/BackupIcon";
+import { WidgetIcon } from "@/components/Icons/WidgetIcon";
+import { GeneralIcon } from "@/components/Icons/GeneralIcon";
+import { PalleteIcon } from "@/components/Icons/PalleteIcon";
 
 import GeneralSection from "@/components/SettingSections/GeneralSection";
 import AppearanceSection from "@/components/SettingSections/AppearanceSection";
@@ -26,50 +31,66 @@ const Settings = () => {
         <ul className="h-full space-y-1">
           <li
             onClick={() => setActive("general")}
-            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm ${
+            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm flex gap-2  items-center ${
               active === "general"
                 ? "bg-gray-800/60 border-l-2"
                 : "hover:bg-gray-600/30"
             }`}
           >
-            General
+            <span className="text-xl">
+              <GeneralIcon />
+            </span>
+            <span>General</span>
           </li>
           <li
             onClick={() => setActive("appearance")}
-            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm ${
+            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm flex gap-2  items-center ${
               active === "appearance"
                 ? "bg-gray-800/60 border-l-2"
                 : "hover:bg-gray-600/30"
             }`}
           >
-            Appearance
+            <span className="text-xl">
+              <PalleteIcon />
+            </span>
+            <span>Appearance</span>
           </li>
           <li
             onClick={() => setActive("widgets")}
-            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm ${
+            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm flex gap-2  items-center  ${
               active === "widgets"
                 ? "bg-gray-800/60 border-l-2"
                 : "hover:bg-gray-600/30"
             }`}
           >
-            Widgets
+            <span className="text-xl">
+              <WidgetIcon />
+            </span>
+            <span>Widgets</span>
           </li>
           <li
             onClick={() => setActive("backup")}
-            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm ${
+            className={`cursor-pointer py-1.5 px-2 text-sm rounded-sm flex gap-2  items-center  ${
               active === "backup"
                 ? "bg-gray-800/60 border-l-2"
                 : "hover:bg-gray-600/30"
             }`}
           >
-            Backup
+            <span className="text-xl">
+              <BackupIcon />
+            </span>
+            <span>Backup</span>
           </li>
         </ul>
 
         <div className="mt-auto space-y-2 px-2 py-1.5 -m-2">
           <div className="flex text-xl items-center justify-center text-gray-400 gap-2">
-            <GithubIcon />
-            <DiscordIcon />
+            <Link href="https://github.com/lirena00/odash" target="_blank">
+              <GithubIcon />
+            </Link>
+            <Link href="https://discord.com/invite/X9VejqEG2Z" target="_blank">
+              <DiscordIcon />
+            </Link>
           </div>
           <div className="text-center text-gray-400">
             <span className="text-sm">Odash</span>

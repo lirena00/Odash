@@ -8,7 +8,6 @@ import React, {
 import { Layout } from "react-grid-layout";
 import { v4 as uuidv4 } from "uuid";
 
-// Define the shape of the widget
 interface Widget {
   i: string;
   component: string;
@@ -155,21 +154,18 @@ const defaultWidgets: Widget[] = [
   },
 ];
 
-// Create the context with default values
 const WidgetsContext = createContext<WidgetsContextProps>({
   widgets: defaultWidgets,
   addWidget: () => {},
   setWidgets: () => {},
 });
 
-// Provider component
 export const WidgetsProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [widgets, setWidgets] = useState<Widget[]>(defaultWidgets);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load widgets from localStorage on mount
   useEffect(() => {
     const savedWidgets = localStorage.getItem("widgets");
     if (savedWidgets) {
