@@ -17,11 +17,7 @@ const AppearanceSection = () => {
     settings.backgroundBlur
   );
 
-  const getInitialColor = () =>
-    getComputedStyle(document.documentElement)
-      .getPropertyValue("--accent-color")
-      .trim();
-  const [customColor, setCustomColor] = useState(getInitialColor);
+  const [customColor, setCustomColor] = useState(settings.accent_color);
 
   const themeOptions = [
     { value: "dark", label: "Dark" },
@@ -110,6 +106,7 @@ const AppearanceSection = () => {
   }, [customColor, updateSettings]);
 
   const handleColorChange = (color: string) => {
+    setCustomColor(color);
     const contrastingColor = getContrastingColor(color);
 
     updateSettings({
