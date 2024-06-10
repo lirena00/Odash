@@ -1,7 +1,7 @@
 (still in development)
 
-# Redash
+# odash
 
-Reimagine your New tab page with Redash.
+Reimagine your New tab page with odash.
 
 Your New Tab Page. Your Way.

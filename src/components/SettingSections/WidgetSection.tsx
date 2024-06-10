@@ -42,13 +42,13 @@ const WidgetSection = ({ addWidget }: SettingsProps) => {
           </div>
           <input
             className="rounded-md bg-transparent w-full px-2 py-1.5 outline-none border-gray-600 border"
-            placeholder="Enter URL"
+            placeholder="https://example.com/"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
           />
           <input
             className="rounded-md bg-transparent w-full px-2 py-1.5 outline-none border-gray-600 border"
-            placeholder="Enter Title"
+            placeholder="Title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
@@ -71,7 +71,7 @@ const WidgetSection = ({ addWidget }: SettingsProps) => {
           </div>
           <input
             className="rounded-md bg-transparent w-full px-2 py-1.5 outline-none border-gray-600 border"
-            placeholder="title"
+            placeholder="Title"
             value={countdown_title}
             onChange={(e) => setCountdown_title(e.target.value)}
           />

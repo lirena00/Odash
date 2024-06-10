@@ -15,13 +15,14 @@ export default function Home() {
     { i: string; component: string; dimensions: Layout }[]
   >([]);
   const { settings } = useSettings();
-  const backgroundImage = settings.backgroundImage;
+
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const savedWidgets = localStorage.getItem("widgets");
     if (savedWidgets) {
       setWidgets(JSON.parse(savedWidgets));
     }
+
     setIsLoading(false);
   }, []);
 
@@ -53,7 +54,15 @@ export default function Home() {
     <main className={`w-screen h-screen flex`}>
       <Nav edit={edit} setEdit={setEdit} addWidget={addWidget} />
       <div className="w-screen h-screen overflow-y-auto ">
-        <WidgetLayout edit={edit} widgets={widgets} setWidgets={setWidgets} />
+        {widgets.length > 0 ? (
+          <WidgetLayout edit={edit} widgets={widgets} setWidgets={setWidgets} />
+        ) : (
+          <div className="w-full h-full grid place-items-center">
+            <span className="text-2xl p-2  backdrop-blur-lg bg-black/80 rounded-md">
+              Add widgets from settings.
+            </span>
+          </div>
+        )}
       </div>
     </main>
   );
