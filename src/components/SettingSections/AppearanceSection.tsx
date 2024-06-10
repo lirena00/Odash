@@ -110,11 +110,11 @@ const AppearanceSection = () => {
   }, [customColor, updateSettings]);
 
   const handleColorChange = (color: string) => {
-    //convert color to rgb
+    const contrastingColor = getContrastingColor(color);
 
     updateSettings({
       accent_color: color,
-      text_color: getContrastingColor(color),
+      text_color: contrastingColor,
     });
   };
 

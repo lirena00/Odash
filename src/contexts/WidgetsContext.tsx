@@ -177,9 +177,7 @@ export const WidgetsProvider: React.FC<{ children: ReactNode }> = ({
   // Save widgets to localStorage whenever they change
   useEffect(() => {
     if (!isLoading) {
-      console.log(widgets);
       localStorage.setItem("widgets", JSON.stringify(widgets));
-      console.log("widgets saved");
     }
   }, [widgets, isLoading]);
 

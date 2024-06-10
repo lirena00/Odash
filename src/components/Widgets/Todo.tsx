@@ -1,5 +1,5 @@
 import { useSettings } from "@/contexts/SettingsContext";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { PlusIcon } from "@/components/Icons/PlusIcon";
 import { MinusIcon } from "@/components/Icons/MinusIcon";
 
@@ -71,8 +71,15 @@ const Todo: React.FC<TodoProps> = ({
   const [newTodo, setNewTodo] = useState("");
   const [todoTitle, setTodoTitle] = useState(title);
 
+  const prevTodosRef = useRef(todos);
+  const prevTitleRef = useRef(todoTitle);
+
   useEffect(() => {
-    onUpdate(id, todoTitle, todos);
+    if (prevTodosRef.current !== todos || prevTitleRef.current !== todoTitle) {
+      prevTodosRef.current = todos;
+      prevTitleRef.current = todoTitle;
+      onUpdate(id, todoTitle, todos);
+    }
   }, [todos, todoTitle, id, onUpdate]);
 
   const handleAddTodo = (event: React.FormEvent) => {
