@@ -42,8 +42,7 @@ const Weather = () => {
     };
 
     fetchWeather();
-  }, []);
-  // *haven't added dependency on settings.city because of api limits
+  }, [settings.city]);
 
   if (error) {
     return (

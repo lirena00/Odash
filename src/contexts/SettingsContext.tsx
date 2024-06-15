@@ -32,7 +32,7 @@ const defaultSettings: UserSettings = {
   theme: "dark",
   timeFormat: "24hr",
   temperatureFormat: "Celsius",
-  city: "",
+  city: "New Delhi",
   backgroundImage: "/wallpaper1.jpg",
   backgroundBlur: 0,
   text_color: "#000000",

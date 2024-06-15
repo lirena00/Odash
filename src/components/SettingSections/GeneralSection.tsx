@@ -5,6 +5,8 @@ import {
   ChevronUpIcon,
   CheckIcon,
 } from "@radix-ui/react-icons";
+import { debounce } from "lodash";
+import { useCallback } from "react";
 
 const GeneralSection = () => {
   const { settings, updateSettings } = useSettings();
@@ -35,11 +37,14 @@ const GeneralSection = () => {
     });
   };
 
-  const handleCityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    updateSettings({
-      city: event.target.value,
-    });
-  };
+  const handleCityChange = useCallback(
+    debounce((event: React.ChangeEvent<HTMLInputElement>) => {
+      updateSettings({
+        city: event.target.value,
+      });
+    }, 2000),
+    []
+  );
 
   return (
     <div className="space-y-4">
@@ -164,7 +169,7 @@ const GeneralSection = () => {
         <span className="font-semibold">City</span>
         <input
           className="rounded-md bg-transparent px-2 py-1.5 outline-none border-gray-300 border"
-          value={settings.city}
+          defaultValue={settings.city}
           onChange={handleCityChange}
         />
       </div>
