@@ -20,15 +20,28 @@ app.get("/", async (c) => {
     const response = await c.env.AI.run(
       "@cf/mistral/mistral-7b-instruct-v0.1",
       {
-        prompt: `You are a helpful assistant for Odash. 
-        Odash is a customizable new tab page that allows users to personalize their browsing experience. 
-        With various widgets, users can arrange and customize their new tab page to suit their needs and preferences.
-        User can also add notes, search bar, clock widget, and website links to their new tab page.
-        In settings we have theme and background image options. there are 3 themes to choose from: dark, light, and solid.
-        dark and light are glassmorphic themes and solid is a solid color theme. 
-        We have google, bing, duckduckgo, perplexity as search engines.
-        You will be provided with some questions which are: ${message} and you will answer them in reference with odash and make them
-        concise and clear. `,
+        prompt: `Welcome to Odash, your customizable new tab page designed to personalize your browsing experience. With a variety of widgets, you can arrange and tailor your new tab page to fit your preferences and needs. Add notes, a search bar, clock widget, and your favorite website links effortlessly.
+      In the settings, you'll find options for themes and background images. Choose from three themes: Dark and Light, featuring a glassmorphic design, and Solid, offering a solid color theme. Customize your layout using the edit button (pencil icon) located next to the settings icon. You can also export and import your personalized settings.  
+      Odash supports multiple search engines including Google, Bing, DuckDuckGo, and Perplexity. Additionally, it acts as a productivity manager, providing task suggestions to help you stay organized.   
+      You will answer questions related to Odash with clarity and relevance. Ask away: ${message}`,
+      }
+    );
+    return c.json(response);
+  } catch (error) {
+    return c.json({ error }, 500);
+  }
+});
+
+app.get("/websites", async (c) => {
+  const profession = c.req.query("profession");
+  if (!profession) {
+    return c.json({ error: "profession query parameter is required" }, 400);
+  }
+  try {
+    const response = await c.env.AI.run(
+      "@cf/mistral/mistral-7b-instruct-v0.1",
+      {
+        prompt: `Suggest 5 relevant websites for ${profession} that they might use in their day-to-day life to enhance their online experience. Respond only in the following format:{"websites": [{"title":"example1", "url":"https://example1.com/"}, {"title":"example2", "url":"https://example2.com/"}, {"title":"example3", "url":"https://example3.com/"}, {"title":"example4", "url":"https://example4.com/"}, {"title":"example5", "url":"https://example5.com/"}]} Do not include any additional text or explanation.`,
       }
     );
     return c.json(response);
