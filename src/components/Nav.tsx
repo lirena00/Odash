@@ -1,8 +1,12 @@
-import { SettingIcon } from "@/components/Icons/SettingIcon";
 import Settings from "@/components/Settings";
+import Chat from "@/components/Chat";
+
 import { useState, useRef, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
+
+import { SettingIcon } from "@/components/Icons/SettingIcon";
 import { EditIcon } from "@/components/Icons/EditIcon";
+import { SparkleIcon } from "@/components/Icons/SparkleIcon";
 
 interface NavProps {
   edit: boolean;
@@ -35,6 +39,11 @@ const Nav: React.FC<NavProps> = ({ edit, setEdit }) => {
         <div></div>
 
         <div className="mt-auto gap-2 flex flex-col">
+          <button
+            onClick={() => setTab((prevTab) => (prevTab === "ai" ? "" : "ai"))}
+          >
+            <SparkleIcon />
+          </button>
           <button onClick={() => setEdit(!edit)}>
             <EditIcon />
           </button>
@@ -49,6 +58,7 @@ const Nav: React.FC<NavProps> = ({ edit, setEdit }) => {
       </div>
 
       <AnimatePresence>{tab === "settings" && <Settings />}</AnimatePresence>
+      <AnimatePresence>{tab === "ai" && <Chat />}</AnimatePresence>
     </div>
   );
 };
