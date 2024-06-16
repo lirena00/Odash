@@ -12,6 +12,7 @@ const Chat = () => {
   const [input, setInput] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -27,24 +28,20 @@ const Chat = () => {
     setInput("");
 
     try {
-      const response = await axios.get(
-        "https://cfbackend-odash.cf-odash.workers.dev/",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          params: {
-            message: input,
-          },
-        }
-      );
+      setLoading(true);
+      const response = await axios.get(process.env.AI_URL || "", {
+        params: {
+          message: input,
+        },
+      });
       const reply: Message = { text: response.data.response, sender: "bot" };
       setMessages((prevMessages) => [...prevMessages, reply]);
       setError(null);
+      setLoading(false);
     } catch (error) {
       console.error("Error sending message:", error);
       setError("Failed to send message. Please try again.");
+      setLoading(false);
     }
   };
 
@@ -71,15 +68,20 @@ const Chat = () => {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`p-2 rounded-lg max-w-[75%] ${
+              className={`px-2 py-1.5 rounded-md max-w-[75%] ${
                 msg.sender === "user"
-                  ? "bg-blue-500 text-white self-end"
-                  : "bg-gray-300 text-black self-start"
+                  ? "bg-gray-600 text-white ml-auto"
+                  : "bg-gray-400 text-black ml-0"
               }`}
             >
               {msg.text}
             </div>
           ))}
+          {loading && (
+            <div className="p-2 rounded-lg max-w-[75%] bg-gray-400 text-black self-start">
+              Loading...
+            </div>
+          )}
         </div>
         {error && <div className="text-red-500 p-2">{error}</div>}
         <div className="p-2 flex space-x-2">
@@ -88,12 +90,12 @@ const Chat = () => {
             type="text"
             value={input}
             onChange={handleInputChange}
-            onKeyPress={handleKeyPress}
-            className="flex-grow p-2 rounded-lg border border-gray-400"
+            onKeyUp={handleKeyPress}
+            className="rounded-md bg-transparent px-2 py-1.5 outline-none border-gray-300 border flex-grow"
           />
           <button
             onClick={sendMessage}
-            className="p-2 rounded-lg bg-blue-500 text-white"
+            className="px-2 py-1 rounded-md bg-white/50 text-black"
           >
             Send
           </button>

@@ -6,6 +6,7 @@ const nextConfig = {
   },
   env: {
     WEATHER_KEY: process.env.WEATHER_KEY,
+    AI_URL: process.env.AI_URL,
   },
 };
 
