@@ -100,6 +100,9 @@ const Chat = () => {
             Send
           </button>
         </div>
+        <div className="text-sm text-gray-400 p-2 text-center">
+          AI can provide total BS response too, because ... it&apos;s AI :D
+        </div>
       </div>
     </motion.div>
   );
