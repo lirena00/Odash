@@ -28,7 +28,7 @@ app.get("/", async (c) => {
         dark and light are glassmorphic themes and solid is a solid color theme. 
         We have google, bing, duckduckgo, perplexity as search engines.
         You will be provided with some questions which are: ${message} and you will answer them in reference with odash and make them
-        concise and clear.`,
+        concise and clear. `,
       }
     );
     return c.json(response);
